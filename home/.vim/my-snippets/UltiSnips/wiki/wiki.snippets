@@ -1,0 +1,12 @@
+# la idea de esto es que puedo tener muchos zettelkastens particulares pero van a estar todos en home; el path relativo al general es siempre ../
+snippet - "-->" m
+--> $0
+endsnippet
+
+snippet bb "[[$biblio/ -p  -find ''|]]" m
+[[$biblio/$1 -p $2 -find '$3'|$4]]
+endsnippet
+
+snippet pp "[[$papers/ -p  -find ''|]]" m
+[[$papers/$1 -p $2 -find '$3'|$4]]
+endsnippet

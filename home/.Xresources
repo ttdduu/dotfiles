@@ -1,0 +1,116 @@
+! Nord Theme
+#define nord0 #2E3440
+#define nord1 #3B4252
+#define nord2 #434C5E
+#define nord3 #4C566A
+#define nord4 #D8DEE9
+#define nord5 #E5E9F0
+#define nord6 #ECEFF4
+#define nord7 #8FBCBB
+#define nord8 #88C0D0
+#define nord9 #81A1C1
+#define nord10 #5E81AC
+#define nord11 #BF616A
+#define nord12 #D08770
+#define nord13 #EBCB8B
+#define nord14 #A3BE8C
+#define nord15 #B48EAD
+
+*.foreground:   nord4
+*.background:   nord4
+*.cursorColor:  nord0
+*fading: 35
+*fadeColor: nord3
+
+*.color0: nord0
+*.color1: nord1
+*.color2: nord14
+*.color3: nord13
+*.color4: nord10
+*.color5: nord5
+*.color6: nord8
+*.color7: nord5
+*.color8: nord3
+*.color9: nord11
+*.color10: nord14
+*.color11: nord4
+*.color12: nord9
+*.color13: nord15
+*.color14: nord7
+*.color15: nord6
+
+*.gray: #808080
+
+
+
+
+!git.log.graphcolor: nord11
+
+! separation
+
+! Base16 Gruvbox dark, medium
+! Scheme: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+
+! #define base00 #282828
+! #define base01 #3c3836
+! #define base02 #504945
+! #define base03 #665c54
+! #define base04 #bdae93
+! #define base05 #d5c4a1
+! #define base06 #ebdbb2
+! #define base07 #fbf1c7
+! #define base08 #fb4934
+! #define base09 #fe8019
+! #define base0A #fabd2f
+! #define base0B #b8bb26
+! #define base0C #8ec07c
+! #define base0D #83a598
+! #define base0E #d3869b
+! #define base0F #d65d0e
+
+! *foreground:   base05
+! *background:   base00
+! *cursorColor:  base05
+
+! *.color0:       base00
+! *.color1:       base08
+! *.color2:       base0B
+! *.color3:       base0A
+! *.color4:       base0D
+! *.color5:       base0E
+! *.color6:       base0C
+! *.color7:       base05
+! *.color8:       base03
+! *.color9:       base08
+! *.color10:      base0B
+! *.color11:      base0A
+! *.color12:      base0D
+! *.color13:      base0E
+! *.color14:      base0C
+! *.color15:      base07
+
+
+! DMENU
+dmenu.background: color0
+dmenu.foreground : color7
+dmenu.selbackground: color13
+dmenu.selforeground: color7
+
+! DWM
+! dwm.normbordercolor : nord0
+! dwm.normbgcolor : nord0
+! dwm.normfgcolor : #bababa
+! dwm.selbordercolor : nord0
+! dwm.selbgcolor : nord0
+! dwm.selfgcolor	 : nord4
+
+!#cosas para xterm, que en realidad funcionaban cuando abria st desde xterm.
+
+!#XTerm*selectToClipboard: true
+
+!#xterm*geometry: 110x50
+!#xterm*font:     *-fixed-*-*-*-30-*
+
+
+!# 96 seria = 1, esto es 1.5. con 144 el monitor ppal no se ve imposiblemente chico.
+Xft.dpi: 96

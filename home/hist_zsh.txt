@@ -1,0 +1,39 @@
+    1  sudo apt install r-base r-base-dev -y
+    2  type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)\ncurl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \\n&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \\n&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \\n&& sudo apt update \\n&& sudo apt install gh -y
+
+git clone https://github.com/baskerville/backlight.git /home/ttdduu/.config/backlight
+cd $HOME/.config/backlight
+chmod +x backlight.c
+pushd backlight && sudo make && sudo make install;popd
+
+    3  zrc
+    4  zalias
+    5  vifm
+    6  f
+    7  mkdir code
+    8  gh repo clone ttdduu/anki
+    9  gh auth login
+   10  gh repo clone ttdduu/anki
+   11  mv anki code/
+   12  cd code
+   13  gh repo clone ttdduu/tomates
+   14  gh repo clone ttdduu/misc
+   15  ..
+   16  mkdir biome evo lsd
+   17  cd biome
+   18  gh repo clone ttdduu/wiki_biome
+   19  ..
+   20  cd evo
+   21  gh repo clone ttdduu/evo_again
+   22  gh repo clone ttdduu/wiki_evo
+   23  ..
+   24  cd lsd
+   25  gh repo clone ttdduu/tesis_repo_viejo_con_commits_pesadas
+   26  gh repo clone ttdduu/tesis
+   27  gh repo clone ttdduu/lsd-files
+   28  vifm
+   29  f
+   30  x
+   31  f
+   32  bash
+   33  mv ultima.txt ultima_bash.txt
