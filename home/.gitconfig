@@ -7,30 +7,30 @@
 [color "status"]
 	untracked = red bold
 	changed = 219 bold
-	deleted = 232 strike #negro
-	unmerged = 196 bold #rojo power
+	deleted = 232 strike # negro
+	unmerged = 196 bold # rojo power
 	staged = blue bold
 	updated = 205 bold
-	unstaged = 240 #gris
+	unstaged = 240 # gris
 #	unchanged = red bold
 #	nobranch = magenta bold
 	header = yellow
 [color "diff"]
-	old = 009 strike #rojo
+	old = 009 strike # rojo
 	meta = 219 bold
 	plain = white
-	frag = 219 #alto rosa
-	new = 157 #lima clarito
-[color] #estoy tratando de poner color en las lineas que unen a las commits pero no hay caso
+	frag = 219 # rosa
+	new = 157 # lima clarito
+[color]
 	ui = always
 	default = red bold
 #	ui = true
 [color "branch"]
-	remote = 092 #violetita cute
-	current = green #verde claro
-	plain = magenta bold #ni idea donde esta
-	local = 028 #verde oscuro
-[color "interactive"] #ni idea ninguno
+	remote = 092 # violetita cute
+	current = green # verde claro
+	plain = magenta bold
+	local = 028 # verde oscuro
+[color "interactive"]
 	error = normal
 	header = red bold
 	help = normal
@@ -45,7 +45,7 @@
 	diff = false
 [alias]
 	graph = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold 192)%as%C(reset) %C(bold 190)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(013)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
-[log]#ni idea. graphColors no hace nada
+[log]
 	graphcolors = 154, 196, 190, 021, 201, cyan, bold 190, bold 196, bold 154, bold 021, bold 201, bold cyan
 [init]
 	defaultBranch = main

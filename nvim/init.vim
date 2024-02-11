@@ -1,4 +1,5 @@
-" todo sobre vim plug {{{
+" vim plug {{{
+
 let mapleader = " "
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
   echo "Downloading junegunn/vim-plug to manage plugins..."
@@ -8,81 +9,61 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
 endif
 " vim plug es un package manager esencialmente
 call plug#begin('~/.vim/plugged')
-Plug 'plasticboy/vim-markdown' " markdown
+Plug 'plasticboy/vim-markdown'
 Plug 'lilydjwg/colorizer'
-Plug 'chrisbra/csv.vim' " comandos para el csv
-Plug 'rafi/awesome-vim-colorschemes' " colorscheme
-Plug 'vim-airline/vim-airline' " airline
-Plug 'vim-airline/vim-airline-themes' " themes para airline
+Plug 'chrisbra/csv.vim'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'ferrine/md-img-paste.vim', {'for':['md','wiki','R']}
-"Plug 'preservim/nerdtree'
-Plug 'vim-python/python-syntax' " syntax python
-"Plug 'tmhedberg/SimpylFold' " foldea python bien
-Plug 'scrooloose/nerdcommenter' " plugin para comentar
-"Plug 'Raimondi/delimitMate' " auto-paréntesis
-Plug 'godlygeek/tabular' " plugin para pandoc y csv no lo uso nunca
-"Plug 'tpope/vim-surround' " surround no lo uso nunca
-Plug 'sirver/ultisnips' " better snippets (suscribe Tab)
-Plug 'lervag/vimtex' "vimtex
-"Plug 'aserebryakov/vim-todo-lists', {'for':['todo.md','todo.wiki']}
+Plug 'vim-python/python-syntax'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Raimondi/delimitMate'
+Plug 'godlygeek/tabular'
+Plug 'sirver/ultisnips'
+Plug 'lervag/vimtex'
 Plug 'lervag/lists.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'tpope/vim-fugitive'
-"Plug 'airblade/vim-gitgutter'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp', { 'do': 'pip install -r requirements.txt' }
 Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi' " para python
-"Plug 'ncm2/ncm2-bufword' " la verdad es que no lo uso
+Plug 'ncm2/ncm2-jedi'
 Plug 'dense-analysis/ale'
 Plug 'easymotion/vim-easymotion'
 Plug 'jpalardy/vim-slime', { 'for': ['python','r','rmd']}
 Plug 'ttdduu/vim-ipython-cell', { 'for': 'python' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-"Plug 'hkupty/iron.nvim'
 Plug 'szw/vim-maximizer'
-"Plug 'vimwiki/vimwiki'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 "Plug 'lervag/wiki.vim', {'commit': '96bb3c921d369df3e089ff6af677b53fe8146166'}
 "Plug 'lervag/wiki-ft.vim', {'commit': '5d3624c1c88758a1db49b7b86ff930c54c6b2e42'}
 Plug 'ttdduu/wiki-ft.vim'
 Plug 'ttdduu/wiki.vim'
-"Plug 'lervag/wiki-ft.vim'
-"Plug 'lervag/wiki.vim'
 Plug 'dyng/ctrlsf.vim' " para usar con ripgrep en wiki.vim
-"Plug 'jbyuki/venn.nvim'
 Plug 'rbgrouleff/bclose.vim'
-"Plug 'junegunn/goyo.vim'
-"Plug 'kshenoy/vim-signature'
 Plug 'vifm/vifm.vim'
 Plug 'gcmt/taboo.vim'
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'gennaro-tedesco/nvim-peekup'
-"Plug 'jmcantrell/vim-virtualenv'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'AckslD/swenv.nvim'
 call plug#end()
 
-"}}}
+" }}}
 
 " {{{ Function to set the foldtext
 
 function! MyFoldText()
     let line = getline(v:foldstart)
 	let name = substitute(line, '\(.*\)', '\1', '')
-    "let name = substitute(line, '## {{{ \(.*\)', '\1', '')
     return name
 endfunction
 
 " }}}
 
 
-":command DONE :%s/'''\_.\{-}'''//g
+" basic set {{{
 
-" Set the foldtext to the first line of the fold
-
-" basic config {{{
 	set foldtext=MyFoldText()
 	set foldmethod=marker
 	set shellcmdflag=-ic " shell interactiva xaq me lea los alias
@@ -110,6 +91,9 @@ endfunction
 	set pumblend=40
 	set cursorline
 	set clipboard+=unnamedplus
+    set wildignore=*.o,*~,*.pyc
+    set ignorecase
+    set smartcase
 	se go=a
 	set wrap
 	set shell=/usr/bin/zsh
@@ -118,18 +102,14 @@ endfunction
 " }}}
 
 " Relevant config {{{
+
 " Return to last edit position when opening files
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+  autocmd TermOpen * setlocal nonumber norelativenumber
+
 " set n lines to the cursor n=7
   "set so=2
-
-" Ignore compiled files
-  set wildignore=*.o,*~,*.pyc
-
-" Smartcase
-  set ignorecase
-  set smartcase
 
 " Automatically deletes all trailing whitespace on save.
   autocmd BufWritePre * %s/\s\+$//e
@@ -143,32 +123,24 @@ endfunction
 
 "cada vez que guardo con vim se actualiza el soruceo de X
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 
 "}}}
 
-"  general mappings{{{
+"  general mappings {{{
 
-" {{{ misc
-" listar qué tiene cada register
-nnoremap <silent> "r :registers "0123456789abcdefghijklmnopqrstuvwxyz*+.<CR>
+
 nmap <leader>v :so $MYVIMRC<CR>
 nmap <leader>a :above split<cr><c-j>
 nmap Y 0y$
 nmap <leader>fv :Vifm<cr>
 nmap yw yiw
-" mapeo el "next" de search a ¿ de "más"... para usar el n
-"nmap ? n
-"nmap . /
 nmap ¿ /<cr>
-" go link: para cuando quiero ir a sección de misma page en wiki pero esa sección es > 6
-nmap gl f]F~lyt].#<C-R>"<esc>:noh<cr>
-"[[blabla|#jeje]]
-
-"#jeje
-
 
 " }}}
+
+
 " buffers {{{
 nmap ,j :bnext<cr>
 nmap ,k :bprevious<cr>
@@ -180,69 +152,18 @@ command! -nargs=0 W wa|qa
 command! -nargs=0 T sp|terminal
 " }}}
 
-" {{{ de vim a otro lado
-" abrir links con chrome
-nmap gc f]F[lyt\|:!google-chrome '<C-R>"'\|st sw & <CR><CR>
-
-" abrir archivos de texto
-nmap gn f]F[lyt\|:e <C-R>"<CR>
-
-" esto sería para un .wiki porque es los comandos [[en un link]] pero bueno. OPEN OKULAR
-nmap go f]F[lyt\|:!okular <C-R>"\|st sw & <CR><CR>
-
-" es abrir praat con los params de advanced pitch settigs; pra es un alias para llamar script.
-nmap gp f]F[lyt\|:!pra <C-R>"<cr><cr>
-
-" con gv puedo ir a cualquier [[filepath.archivodetexto_que_está_fuera_de_la_wiki search pattern incluyendo espacios para ir justo a la línea que tiene este string| descripción]] abriéndolo en nueva tab, o a una [[~sección que llamo con este ~ para hacerme saber al verla que está excedida de los 6 #niveles de markdown|descripción]]
-function! ConditionalYankedAction()
-  let first_char = matchstr(getreg('"'), '^.')
-  let mystring = getreg('"')
-  if first_char == '~'
-	let string_without_dash = substitute(mystring, '^.', '', '')
-	call setreg('s', string_without_dash)
-    "/#<C-R>"<esc>:noh<cr>
-	execute '/#' . @s
-	execute "normal! 0"
-
-  else
-    execute "tabnew | call SearchYankedContent() | call feedkeys(':TabooRename ', 'n')"
-  endif
-endfunction
-
-nnoremap <silent> gv f]F[lyt\|:call ConditionalYankedAction()<CR>
-
-nmap tr :TabooRename<space>
-nmap tn :tabnew<cr>,dtr
-nmap \| :tabnext<cr>
-nmap 1\| :tabprev<cr>
-nmap tc :tabclose<cr>
-nmap t<cr> <plug>(wiki-link-follow-tab)tr
-" Go to tab by number
-noremap t1 1gt
-noremap t2 2gt
-noremap t3 3gt
-noremap t4 4gt
-noremap t5 5gt
-noremap t6 6gt
-noremap t7 7gt
-noremap t8 8gt
-noremap t9 9gt
-
-" }}}
-
-" }}}
-
-" CtrlSF usado con wiki.vim xa buscar texto dentro de file {{{
-"nmap <leader>fs :CtrlSF<space>
+" WIKI
+" {{{ CtrlSF usado con wiki.vim xa buscar texto dentro de file
 nmap <leader>fs <Plug>CtrlSFPrompt
 function! g:CtrlSFAfterMainWindowInit()
     setl wrap
 endfunction
 nmap <leader>ff :CtrlSFToggle<CR>
 let g:ctrlsf_mapping = {"open":"","split":"<CR>"}
+
 ""}}}
 
-"ultisnips{{{
+" {{{ ultisnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/my-snippets/UltiSnips']
 let g:UltiSnipsListSnippets="<c-tab>"
@@ -250,7 +171,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-l>"
 let g:UltiSnipsJumpBackwardTrigger="<c-h>"
 "}}}
 
-" Ale linting con flake8{{{
+" {{{ Ale linting con flake8
 let g:ale_sign_column_always=1
 let g:ale_lint_on_enter=1
 let g:ale_lint_on_text_changed='always'
@@ -260,15 +181,6 @@ let g:ale_echo_msg_format='[%linter%] %s [%severity%]: [%...code...%]'
 let g:ale_linters={'python': ['flake8'], 'r': ['lintr']}
 let g:ale_fixers={'python': ['black']}
 "}}}
-
-" gitgutter{{{
-let g:gitgutter_async=0"
-set updatetime=100
-
-" para evitar el overriding de ale/flake8 vs gitgutter
-let g:ale_sign_priority=8
-let g:gitgutter_sign_priority=9
-" }}}
 
 " {{{ vim-fugitive
 nmap <leader>gg :term git status<CR>
@@ -298,38 +210,24 @@ nmap <leader>gbD :G branch --edit-description<cr>
 nmap <leader>gbd :!gbd<cr>
 " }}}
 
-" no uso el default e para end of word así que lo mapeo a easymotion -s{{{
-"nmap <leader>cu <Plug>(easymotion-s)
-"cmap <leader>cu <Plug>(easymotion-s)
-"vmap <leader>s <Plug>(easymotion-s)
 map s <Plug>(easymotion-s)
-" }}}
+autocmd FileType csv nmap <buffer> <Leader><Leader> :Tabularize /,<CR>
+
+" {{{ ncm2
 
 let g:python3_host_prog='/home/ttdduu/miniconda3/envs/pytom/bin/python'            " ncm2-jedi
-" ncm2{{{
 autocmd BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
 set completeopt=noinsert,menuone,noselect             " IMPORTANT: :help Ncm2PopupOpen for more information
 "" para no tener que escribir 3 caracteres antes de que aparezca el autocomplete. esto a su vez renders useless la utilizacion de wiki.vim del omnicomplete.
 let g:ncm2#complete_length=[[1,1],[7,2]]
 " }}}
 
-" navegación y resizing windows y terminal{{{
-"la i es para llegar a la terminal y estar en insert mode
+" {{{ navegación y resizing windows y terminal
 nnoremap <C-h> <C-w>h
-"el normal: ir para el split de abajo y automaticamente ponerlo en tamano normal en vez de minimizado
 nnoremap <C-j> <C-w>j
-autocmd filetype python nnoremap <C-j> <C-w>j <c-w>=
-"para python:
-autocmd FIleType py nnoremap <C-j> <C-j>i
-
 nnoremap <C-k> <C-w>k
-
-"nnoremap <C-l> <C-w>l <c-w>=
 nnoremap <C-l> <C-w>l
-"autocmd FIleType py nnoremap <C-l> <C-w>l
-tmap <C-h> <esc><C-h>
 inoremap <C-j> <esc><C-j>
-tmap <C-k> <esc><C-k>
 
 " resizing gradual
 noremap <silent> <leader>- :resize -3<CR>
@@ -339,76 +237,59 @@ noremap <silent> <leader>+ :resize +3<CR>
 map <Leader>h <C-w>t<C-w>H
 map <Leader>k <C-w>t<C-w>K
 
-autocmd filetype python command! H normal! 0y$?{{{<cr>$a<space><esc>p
 " }}}
 
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" {{{ markdown
 
-" csv{{{
-
-autocmd FileType csv nmap <buffer> <Leader><Leader> :Tabularize /,<CR>
-"}}}
-
-"markdown {{{
 autocmd FileType markdown nmap <buffer> <Leader><Leader><CR> :! pandoc % -o %:r.pdf; okular --fork %:r.pdf<CR><CR>
 autocmd FileType markdown nmap <buffer> <Leader><CR> :w<CR>
 autocmd FileType markdown,wiki nmap <buffer><silent> <Leader>p :call mdip#MarkdownClipboardImage()<CR>
 
-
-" comento esto para que se me genere un pdf a partir de un .md solo si hago o de arroba y no simpre que guardo un .md
-"aug MD2PDF
-    "au!
-    "au BufWritePost *.md silent !pandoc % -o %:r.pdf
-"aug END
 "}}}
 
 " python + terminal {{{
 
-"nueva terminal de python
+" abrir nueva term split
 autocmd filetype python map <Leader>P :new term://zsh<CR>iipython3 --matplotlib<CR><C-\><C-n><C-w>k"<CR>
 
-" terminal en general {{{
-
-"salir de insert mode en terminal de neovim
+" navegación
+autocmd filetype python nnoremap <C-j> <C-w>j <c-w>=
+tmap <C-h> <esc><C-h>
+tmap <C-k> <esc><C-k>
 tnoremap <esc> <c-\><c-n>
-
 nmap <c-w><c-l> :set scrollback=1 \| sleep 100m \| set scrollback=10000<CR>
 tmap <c-w><c-l> <c-\><c-n><c-w><c-l>i<c-l>
 
-
 " maximizar o poner mitad-mitad
-"map <C-m> <C-w>_
-"map <C-n> <C-w>=
 map <Leader>m :MaximizerToggle<CR>
 map <Leader>0 <C-w>=<esc>
-"tmap <C-m> :MaximizerToggle<CR>
 
-" no poner line numbers
-autocmd TermOpen * setlocal nonumber norelativenumber
-" }}}
-
-" lead-enter {{{
+" lead-enter
 autocmd Filetype python nmap <buffer> <Leader><CR> :update<bar>!python3 %<CR>
-
 "dato: esto de aca arriba genera el mismo resultado que esto:
 "nmap <Leader><CR> :w<CR>:!python3 %<CR>
-" }}}
 
-" lead-lead-enter {{{
-"autocmd FileType python nmap <buffer> <Leader><Leader><CR> :update<bar>vs<Space>\|<Space>terminal ipython -i -c "\%run %"<CR>i
-
+" lead-lead-enter
 autocmd FileType python nmap <buffer> <Leader><Leader><CR> :update<bar>vs<Space>\|<Space>terminal ipython -i -c "\%run %"<CR>\|:let t:term_id = b:terminal_job_id<CR>\|:execute 'let b:slime_config = {"jobid": "'.t:term_id . '"}'<CR>i
-" }}}
 
-"slime {{{
-let g:slime_target = 'neovim'
-
-"con solo esa linea slime anda bien con binds default.
+" slime + ipython cells
+let g:slime_target = 'neovim' " con solo esta linea slime anda bien con binds default.
 " let g:slime_dont_ask_default = 1 si agrego esto tira error
-
 let g:slime_no_mappings = 1
 nmap <c-c>v     <Plug>SlimeConfig
-"xmap <Leader>s <Plug>SlimeRegionSend<CR>
+"el segundo CR es para hacer enter luego de que me pregunte por el job id
+autocmd filetype python nmap <Leader><Leader>r <esc><C-k> :IPythonCellRun<CR><CR>
+autocmd filetype python nmap <Leader>r :IPythonCellExecuteCell<CR><CR><c-j>G<c-k>
+let g:ipython_cell_tag = ['##']
+let g:ipython_cell_send_cell_headers = 1
+" header
+autocmd filetype python command! H normal! 0y$?{{{<cr>$a<space><esc>p
+
+" }}}
+
+" }}}
+
+" {{{ R
 
 autocmd BufEnter *r,*rmd nnoremap <leader>R :above split<cr>:term R<cr> <c-w>r<c-w>k
 autocmd BufEnter *r,*rmd nnoremap <leader>r V<Plug>SlimeRegionSend<CR><c-w>ja<esc><c-k>
@@ -417,27 +298,11 @@ autocmd BufEnter *r,*rmd vmap <leader>r <Plug>SlimeRegionSend<CR><c-w>ja<esc><c-
 autocmd filetype r,rmd nnoremap <leader>R :above split<cr>:term R<cr> <c-w>r<c-w>k
 autocmd filetype r,rmd nnoremap <leader>r V<Plug>SlimeRegionSend<CR><c-w>ja<esc><c-k>
 autocmd filetype r,rmd vmap <leader>r <Plug>SlimeRegionSend<CR><c-w>ja
-" }}}
-
-
-
-" cell {{{
-"el segundo CR es para hacer enter luego de que me pregunte por el job id
-nmap <Leader><Leader>r <esc><C-k> :IPythonCellRun<CR><CR>
-
-autocmd filetype python nmap <Leader>r :IPythonCellExecuteCell<CR><CR><c-j>G<c-k>
-
-let g:ipython_cell_tag = ['##']
-let g:ipython_cell_send_cell_headers = 1
-
-" }}}
 
 " }}}
 
 " wiki.vim {{{
-"nmap <leader>td :e todo.wiki<CR>
-"let g:wiki_root = '~/zettelkasten' "esto no sirve de nada si no tengo un zettelkasten
-" si no agrego md no puedo abrir fotos en .md apretando enter
+
 let g:wiki_filetypes = ['wiki', 'md']
 let g:wiki_link_extension = '.wiki'
 let g:wiki_link_target_type = 'wiki'
@@ -446,6 +311,10 @@ autocmd filetype wiki setlocal wrap
 " mappings {{{
 autocmd filetype wiki nmap <s-tab> <plug>(wiki-link-prev)
 autocmd FileType wiki imap <S-tab> <esc>Ea<space>
+
+" go link: para cuando quiero ir a sección de misma page en wiki pero esa sección es > 6
+autocmd filetype wiki nmap gl f]F~lyt].#<C-R>"<esc>:noh<cr>
+
 "autocmd filetype wiki nmap <leader>wp <leader>wp:wq<cr>
 " resumen de estos yanks: estoy en un link. ese link es de un TOC. si quiero llevar ese link a anki hago yk --> controlV en anki. si quiero llevar ese link a otro file en la misma wiki hago yr (relative ponele) --> fsp en el otro file. si quiero agarrar este link de toc para usarlo para referenciar esa sección, hago yl --> "lp
 

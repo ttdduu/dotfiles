@@ -32,25 +32,4 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-#exec xterm -geometry 80x66+0+0 -name login
-
-#AGREGADAS POR MI
-
-#xset r rate 175 50 # reducir delay de teclas
-
-# unclutter -idle 1 -jitter 2 -root &
-
-#setxkbmap -option caps:swapescape
-
-
-#aqui me pongo a cantar
-### Make some devices default
-#parlante
-#pacmd set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo
-#mic
-#pacmd set-default-source alsa_input.pci-0000_00_1f.3.analog-stereo
-#
-
-
 exec bspwm
-
