@@ -5,7 +5,7 @@
 export H=$HOME
 #export D=$H/Dropbox
 export todo=$H/Dropbox/todo
-export PATH=$PATH:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/code:$HOME/code/misc:$HOME/code/tomates:$HOME/code/anki:$HOME/.config/vifm/scripts:/usr/bin/praat/:$HOME/code/lsd/praat:$HOME/.config/polybar
+export PATH=$PATH:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/code:$HOME/code/misc:$HOME/code/tomates:$HOME/code/anki:$HOME/.config/vifm/scripts:/usr/bin/praat/:$HOME/code/lsd/praat:$HOME/.config/polybar:$HOME/code/misc/wrappers
 #export PYTHONPATH=$HOME/Documents/scripts/pyfx/ml:$PYTHONPATH esto tenia en la compu vieja
 export PYTHONPATH=$PYTHONPATH:$HOME/code:$HOME/code/tomates:$HOME/code/misc:$HOME/code/anki:$HOME/code/lsd/:$HOME/lsd/tesis/
 #export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
@@ -26,6 +26,7 @@ export wiki_fsn=$HOME/Dropbox/wiki_fsn
 export wiki_evo=$HOME/Dropbox/wiki_evo
 export biome=$HOME/biometria/wiki_biome
 export evo=$HOME/evo/evo_again/wiki_evo_again
+export ef=$HOME/evo/final # evo final
 export lsd=$HOME/lsd
 export w=$HOME/lsd/tesis/extra_files/wavs
 export wn=$HOME/lsd/tesis/extra_files/wavs/2023/nidos
@@ -113,7 +114,7 @@ ZSH_THEME="lambda"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-syntax-highlighting)
-
+PYTHONSTARTUP="$(python3 -m jedi repl)"
 source $ZSH/oh-my-zsh.sh
 setopt auto_cd
 

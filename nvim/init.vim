@@ -1,4 +1,4 @@
-" vim plug {{{
+" {{{ vim plug
 
 let mapleader = " "
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
@@ -61,8 +61,7 @@ endfunction
 
 " }}}
 
-
-" basic set {{{
+" {{{ basic set
 
 	set foldtext=MyFoldText()
 	set foldmethod=marker
@@ -94,6 +93,7 @@ endfunction
     set wildignore=*.o,*~,*.pyc
     set ignorecase
     set smartcase
+	set noshowmode
 	se go=a
 	set wrap
 	set shell=/usr/bin/zsh
@@ -101,7 +101,7 @@ endfunction
 
 " }}}
 
-" Relevant config {{{
+" {{{ Relevant config
 
 " Return to last edit position when opening files
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -128,7 +128,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 "}}}
 
-"  general mappings {{{
+" {{{ general mappings
 
 
 nmap <leader>v :so $MYVIMRC<CR>
@@ -138,10 +138,34 @@ nmap <leader>fv :Vifm<cr>
 nmap yw yiw
 nmap ¿ /<cr>
 
+vmap <leader>s y<esc><esc><c-j><esc>pa<cr><cr>
+map $ g_
+vmap * c*<c-r>"*<esc>
+nmap * 0vg_*
+vmap _ c_<c-r>"_<esc>
+vmap ` c`<c-r>"`<esc>
+nmap _ 0vg__
+nmap C 0vg_`<esc>
+
+imap <c-s> σ2
+imap <c-b> β
+imap <c-e> ε
+imap <c-u> μ
+imap <c-a> α
+imap <c-d> δ
+cmap <c-s> σ2
+cmap <c-b> β
+cmap <c-e> ε
+cmap <c-u> μ
+cmap <c-a> α
+cmap <c-d> δ
+
+command! Curr mks! $HOME/currently.session
+
+
 " }}}
 
-
-" buffers {{{
+" {{{ buffers
 nmap ,j :bnext<cr>
 nmap ,k :bprevious<cr>
 nmap ,b :ls<CR>:b<Space>
@@ -152,7 +176,6 @@ command! -nargs=0 W wa|qa
 command! -nargs=0 T sp|terminal
 " }}}
 
-" WIKI
 " {{{ CtrlSF usado con wiki.vim xa buscar texto dentro de file
 nmap <leader>fs <Plug>CtrlSFPrompt
 function! g:CtrlSFAfterMainWindowInit()
@@ -164,6 +187,7 @@ let g:ctrlsf_mapping = {"open":"","split":"<CR>"}
 ""}}}
 
 " {{{ ultisnips
+
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/my-snippets/UltiSnips']
 let g:UltiSnipsListSnippets="<c-tab>"
@@ -172,6 +196,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-h>"
 "}}}
 
 " {{{ Ale linting con flake8
+
 let g:ale_sign_column_always=1
 let g:ale_lint_on_enter=1
 let g:ale_lint_on_text_changed='always'
@@ -183,6 +208,7 @@ let g:ale_fixers={'python': ['black']}
 "}}}
 
 " {{{ vim-fugitive
+
 nmap <leader>gg :term git status<CR>
 nmap <leader>ga :G add %<CR>
 nmap <leader>gA :G add -A<CR>
@@ -210,19 +236,20 @@ nmap <leader>gbD :G branch --edit-description<cr>
 nmap <leader>gbd :!gbd<cr>
 " }}}
 
-map s <Plug>(easymotion-s)
-autocmd FileType csv nmap <buffer> <Leader><Leader> :Tabularize /,<CR>
-
 " {{{ ncm2
 
 let g:python3_host_prog='/home/ttdduu/miniconda3/envs/pytom/bin/python'            " ncm2-jedi
-autocmd BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
+"autocmd filetype python BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
 set completeopt=noinsert,menuone,noselect             " IMPORTANT: :help Ncm2PopupOpen for more information
 "" para no tener que escribir 3 caracteres antes de que aparezca el autocomplete. esto a su vez renders useless la utilizacion de wiki.vim del omnicomplete.
 let g:ncm2#complete_length=[[1,1],[7,2]]
+set shortmess+=c
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " }}}
 
 " {{{ navegación y resizing windows y terminal
+
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -247,10 +274,16 @@ autocmd FileType markdown,wiki nmap <buffer><silent> <Leader>p :call mdip#Markdo
 
 "}}}
 
-" python + terminal {{{
+" {{{ python + terminal
+
 
 " abrir nueva term split
-autocmd filetype python map <Leader>P :new term://zsh<CR>iipython3 --matplotlib<CR><C-\><C-n><C-w>k"<CR>
+"autocmd filetype python map <Leader>P :new term://zsh<CR>iipython3 --matplotlib<CR><C-\><C-n><C-w>k"<CR>
+"autocmd filetype python map <Leader>P :new term://ipython3 --matplotlib<CR><C-\><C-n><C-w>k"<CR>
+
+" 2024 agrego que me tome el mismo env con el que abro el .py a partir del cual abro ipython. imp xq otherwise por default me abre zsh con pytom o el env que sea default.
+autocmd filetype python map <Leader>P :let @e = $CONDA_PREFIX\|:new term://zsh<CR>:sleep800ms<cr>iconda activate <esc>"epi && ipython --matplotlib<cr>
+
 
 " navegación
 autocmd filetype python nnoremap <C-j> <C-w>j <c-w>=
@@ -273,6 +306,8 @@ autocmd Filetype python nmap <buffer> <Leader><CR> :update<bar>!python3 %<CR>
 autocmd FileType python nmap <buffer> <Leader><Leader><CR> :update<bar>vs<Space>\|<Space>terminal ipython -i -c "\%run %"<CR>\|:let t:term_id = b:terminal_job_id<CR>\|:execute 'let b:slime_config = {"jobid": "'.t:term_id . '"}'<CR>i
 
 " slime + ipython cells
+
+let g:ipython_cell_send_cell_headers = 1
 let g:slime_target = 'neovim' " con solo esta linea slime anda bien con binds default.
 " let g:slime_dont_ask_default = 1 si agrego esto tira error
 let g:slime_no_mappings = 1
@@ -281,11 +316,26 @@ nmap <c-c>v     <Plug>SlimeConfig
 autocmd filetype python nmap <Leader><Leader>r <esc><C-k> :IPythonCellRun<CR><CR>
 autocmd filetype python nmap <Leader>r :IPythonCellExecuteCell<CR><CR><c-j>G<c-k>
 let g:ipython_cell_tag = ['##']
-let g:ipython_cell_send_cell_headers = 1
-" header
-autocmd filetype python command! H normal! 0y$?{{{<cr>$a<space><esc>p
 
+augroup ipython_cell_highlight
+    autocmd!
+	autocmd filetype python highlight IPythonCell cterm=bold guifg=Black guibg=white
+augroup END
+
+autocmd filetype python command! H normal! 0y$?{{{<cr>$a<space><esc>p
 " }}}
+" }}}
+
+" {{{ airline
+
+function! AirlineInit()
+  let g:airline_section_a = airline#section#create(['mode','branch'])
+  let g:airline_section_c = airline#section#create(['path'])
+  "let g:airline_section_x = airline#section#create([system('source /home/ttdduu/code/misc/env')])
+  let g:airline#extensions#default#layout = [ [ 'a', 'b', 'c'], [ 'error', 'warning' ] ]
+endfunction
+
+call AirlineInit() " Call the function immediately when sourcing the init file
 
 " }}}
 
@@ -301,16 +351,19 @@ autocmd filetype r,rmd vmap <leader>r <Plug>SlimeRegionSend<CR><c-w>ja
 
 " }}}
 
-" wiki.vim {{{
+" {{{ wiki.vim
 
 let g:wiki_filetypes = ['wiki', 'md']
 let g:wiki_link_extension = '.wiki'
 let g:wiki_link_target_type = 'wiki'
 autocmd filetype wiki setlocal wrap
+autocmd filetype wiki let wiki_export['output'] = $PWD
 
-" mappings {{{
+" {{{ mappings
+
 autocmd filetype wiki nmap <s-tab> <plug>(wiki-link-prev)
 autocmd FileType wiki imap <S-tab> <esc>Ea<space>
+nmap <leader>E :WikiExport<cr>\| sleep 120m \| u\| :!dropbox start<cr><cr>
 
 " go link: para cuando quiero ir a sección de misma page en wiki pero esa sección es > 6
 autocmd filetype wiki nmap gl f]F~lyt].#<C-R>"<esc>:noh<cr>
@@ -368,7 +421,8 @@ autocmd filetype wiki nnoremap K :call search('^#', 'bW')<CR>
 " }}}
 " }}}
 
-" create page{{{
+" {{{ create page
+
 "let g:wiki_map_create_page = 'MyFunction'
 
 function MyFunction(name) abort
@@ -382,12 +436,10 @@ function MyFunction(name) abort
 endfunction
 " }}}
 
-"{{{text to link
+" {{{ text to link
 " esto viene de una modicicación que le hice a este comment de lervag: https://github.com/lervag/wiki.vim/issues/240#issuecomment-1195354202
 let g:wiki_map_text_to_link = 'MyTextToLink'
 function MyTextToLink(text) abort
-  "return [strftime('%Y%d%m%H%M%S') . '_' . a:text, a:text]
-  "return [strftime('%A-%d-%m-%Y-%H%M%S') . '_' . a:text, a:text]
   return [strftime('%Y-%m-%d-%A-%H%M%S') . '_' . a:text, a:text]
 endfunction
 
@@ -403,18 +455,7 @@ endfunction
 
 " }}}
 
-
-" templates {{{
-
-" esto es una lista de diccionarios; cada diccionario tiene info de un template: "todos tienen que tener a matcher and a source". el único que tengo es template.wiki. el criterio que tiene que tener un filename para que se le aplique el template es no tener un whitespace. osea... todos.
-"let g:wiki_templates = [
-	  "\ { 'match_re': '\S',
-	  "\   'source_filename': '/home/tdu/zettelkasten/template.wiki'}
-	  "\]
-" lo comento xq no lo uso y xq no sé cómo hacer para que funcione solo con archivos .wiki; ahora hago cualquier .md anywhere y me pone el template.
-"}}}
-
-" omnicomplete {{{
+" {{{ omnicomplete
 "esto es copiado de wiki.vim. es para usar omnicomplete de links luego de [[. lo que tiene es que te hace omnicomplete desde el working dir hacia abajo, pero no viceversa hasta el index.wiki. entonces la unica ventjaa que tiene respecto de ncm2-path es lo primero que hace, dado que ncm2 solo se fija en el wd.
 augroup my_cm_setup
 autocmd!
@@ -430,14 +471,11 @@ autocmd User WikiBufferInitialized call ncm2#register_source({
 		\                 'wiki#complete#omnicomplete'],
 		\})
 augroup END
-
-
-autocmd filetype wiki let wiki_export['output'] = $PWD
-
-" }}}
 " }}}
 
-" todo lists {{{
+" }}}
+
+" {{{ todo lists
 
 
 autocmd FileType wiki,python ListsEnable
@@ -468,7 +506,7 @@ let g:lists_maps_default_override = {'<plug>(lists-toggle)': '<leader>l'}
 
 " }}}
 
-" Vimtex{{{
+" {{{ Vimtex
 " let g:vimtex_compiler_latexmk_engines = {'pdflatex': '-pdf'}
 let g:vimtex_compiler_latexmk_engines = {'latexmk': '-pdf'}
 let g:tex_flavor = "latex"
@@ -491,6 +529,9 @@ autocmd FileType tex nmap <buffer> <Leader><Leader><CR> :update<bar>:VimtexCompi
 
 "}}}
 
+map s <Plug>(easymotion-s)
+autocmd FileType csv nmap <buffer> <Leader><Leader> :Tabularize /,<CR>
+
 
 " vim-markdown para latex
 " lo de tex no se paque sirve
@@ -500,14 +541,8 @@ let g:vim_markdown_math = 1
 "algo que le gusta a lervag
 let g:vim_markdown_conceal = 2
 
-"set wrap
+" keyword highlights {{{
 
-let g:goyo_height = 125
-
-"set wrap
-
-
-" highlights {{{
 highlight MyGroupTODO ctermbg=LightRed guibg=LightRed ctermfg=black guifg=black
 autocmd VimEnter * autocmd WinEnter * let m1 = matchadd("MyGroupTODO", "TODO")
 let m1 = matchadd("MyGroupTODO", "TODO")
@@ -520,8 +555,6 @@ highlight MyGroupSBY ctermbg=magenta guibg=magenta ctermfg=black guifg=black
 autocmd VimEnter * autocmd WinEnter * let m3 = matchadd("MyGroupSBY", "STANDBY")
 let m3 = matchadd("MyGroupSBY", "STANDBY")
 
-" retomar en es standby para cuando todavía no lo empecé.
-
 highlight MyGroupIMP ctermbg=red guibg=red ctermfg=white guifg=white
 autocmd VimEnter * autocmd WinEnter * let m4 = matchadd("MyGroupIMP", "IMPORTANTE")
 let m4 = matchadd("MyGroupIMP", "IMPORTANTE")
@@ -529,12 +562,6 @@ let m4 = matchadd("MyGroupIMP", "IMPORTANTE")
 highlight MyGroupDONE ctermbg=LightGreen guibg=LightGreen ctermfg=black guifg=black
 autocmd VimEnter * autocmd WinEnter * let m5 = matchadd("MyGroupDONE", "DONE")
 let m5 = matchadd("MyGroupDONE", "DONE")
-
-"highlight MyGroupRETOMAREN ctermbg=lightcyan guibg=lightcyan ctermfg=black guifg=black
-"autocmd VimEnter * autocmd WinEnter * let m6 = matchadd("MyGroupRETOMAREN", "RETOMAR EN")
-"let m6 = matchadd("MyGroupRETOMAREN", "RETOMAR EN")
-"let m6 = matchadd("MyGroupRETOMAREN", strftime('%d%m%y') . "RETOMAR EN")
-
 
 highlight MyGroupREVISAR ctermbg=Yellow guibg=Yellow ctermfg=black guifg=black
 autocmd VimEnter * autocmd WinEnter * let m7 = matchadd("MyGroupREVISAR", "REVISAR")
@@ -548,84 +575,8 @@ highlight MyGroupflechita ctermfg=yellow guifg=yellow
 autocmd VimEnter * autocmd WinEnter * let m8 = matchadd("MyGroupflechita", "-->")
 let m8 = matchadd("MyGroupflechita", "-->")
 
-
-"highlight MyGroupasterisco ctermfg=yellow guifg=yellow
-"autocmd VimEnter * autocmd WinEnter * let m9 = matchadd("MyGroupasterisco", "*")
-"let m9 = matchadd("MyGroupasterisco", "*")
-
-
-
 " }}}
 
-" color de cell headers
-augroup ipython_cell_highlight
-    autocmd!
-	autocmd filetype python highlight IPythonCell cterm=bold guifg=Black guibg=white
-augroup END
-
-vmap <leader>s y<esc><esc><c-j><esc>pa<cr><cr>
-
-nnoremap <C-down> :call NerdSlides#next()<CR>
-nnoremap <C-up> :call NerdSlides#previous()<CR>
-
-
-"vmap ] c[[<c-r>"]]
-
-
-map $ g_
-vmap * c*<c-r>"*<esc>
-nmap * 0vg_*
-vmap _ c_<c-r>"_<esc>
-vmap ` c`<c-r>"`<esc>
-" sin un caracter demás
-"nmap v$ 0v$
-" hacer línea italic
-nmap _ 0vg__
-nmap C 0vg_`<esc>
-
-" para clozear
-autocmd filetype wiki vmap } c{{cN::<c-r>"}}<esc>FNr
-
-"augroup MyWikiAutocmds
-  "autocmd!
-  "autocmd User WikiBufferInitialized call wiki#buffer#refresh_incoming_links()
-"augroup END
-
-
-
-
-imap <c-s> σ2
-imap <c-b> β
-imap <c-e> ε
-imap <c-u> μ
-imap <c-a> α
-imap <c-d> δ
-cmap <c-s> σ2
-cmap <c-b> β
-cmap <c-e> ε
-cmap <c-u> μ
-cmap <c-a> α
-cmap <c-d> δ
-
-
-"function! SearchYankedContent()
-"    " Get yanked content
-"    let yanked_content = getreg('"')
-"
-"    " Split yanked content into file path and the rest
-"    let first_space = stridx(yanked_content, ' ')
-"    let file_path = strpart(yanked_content, 0, first_space)
-"    let rest = strpart(yanked_content, first_space + 1)
-"
-"    " Open the file
-"    execute "edit " . file_path
-"
-"    " Search for the pattern
-"    execute "normal :exe '/" . escape(rest, '/') . "'\<CR>"
-"
-"    " Set cursor at the start of the search result
-"    normal n
-"endfunction
 
 function! SearchYankedContent()
     " Get yanked content
@@ -656,55 +607,9 @@ augroup end
 autocmd filetype r,python nmap <tab> /[[<cr>:noh<cr>
 
 
-"command! -nargs=0 Cal w|WikiExport
-"nmap <leader>C :Cal<cr>\| sleep 50m \|:!dropbox start<cr>
-nmap <leader>E :WikiExport<cr>\| sleep 120m \| u\| :!dropbox start<cr><cr>
 
-command! Curr mks! $HOME/currently.session
 
 lua require('nvim-peekup.config').on_keystroke["paste_reg"] = '+'
-
 lua require('nvim-peekup.config').on_keystroke["delay"] = ''
 
 
-"if has('autocmd')
-"  augroup airline_init
-"    autocmd!
-"    autocmd User AirlineAfterInit
-"      \ call s:airline_init()
-"  augroup END
-"endif
-"call airline#parts#define_function('fencbomffmt','Airline_file_encoding_bom_file_format')
-"let g:airline#extensions#virtualenv#enabled = 1
-"function! s:airline_init()
-"  let l:spc = g:airline_symbols.space
-"  let g:airline_section_y = airline#section#create_right([''])
-"  let g:airline_section_z = airline#section#create(['linenr','maxlinenr', '%{virtualenv#statusline()}','%p%%','%3v'.l:spc,])
-"endfunction
-
-function! AirlineInit()
-  let g:airline_section_a = airline#section#create(['mode','branch'])
-  "let g:airline_section_b = airline#section#create(['%{MyEnvVar()}'])
-  let g:airline_section_c = airline#section#create(['path'])
-  "let g:airline_section_x = airline#section#create([require('swenv.api').get_current_venv()])
-  let g:airline_section_w = airline#section#create(['jeje'])
-  "let g:airline_section_z = airline#section#create([''])
-  let g:airline#extensions#default#layout = [ [ 'a', 'b', 'c' ], [ 'error', 'warning' ] ]
-endfunction
-
-
-function! MyEnvVar()
-  "let env_var_value = luaeval(require("swenv.api").get_current_venv()')
-  return env_var_value
-endfunction
-
-call AirlineInit() " Call the function immediately when sourcing the init file
-
-
-" Check if Vim Airline is installed
-"if exists('g:loaded_airline') || exists('g:loaded_airline_powerline_fonts')
-"    let g:airline_section_y = airline#section#create_right([''])
-"    let g:airline_section_z = airline#section#create(['linenr', 'maxlinenr', '%{virtualenv#statusline()}', '%p%%'])
-"endif
-
-set noshowmode

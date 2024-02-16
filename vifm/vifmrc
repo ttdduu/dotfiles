@@ -1,24 +1,4 @@
-" bla {{{
-" vim: filetype=vifm :
-" Sample configuration file for vifm (last updated: 2 June, 2019)
-" You can edit this file by hand.
-" The " character at the beginning of a line comments out the line.
-" Blank lines are ignored.
-" The basic format for each item is shown with an example.
-
-" ------------------------------------------------------------------------------
-" }}}
-
-" Command used to edit files in various contexts.  The default is vim./*{{{*/
-" If you would like to use another vi clone such as Elvis or Vile
-" you will need to change this setting.
-
 set vicmd=nvim
-
-" This makes vifm perform file operations on its own instead of relying on/*{{{*/
-" standard utilities like `cp`.  While using `cp` and alike is a more universal
-" solution, it's also much slower when processing large amounts of files and
-" doesn't support progress measuring.
 
 set syscalls
 " Trash Directory
@@ -61,7 +41,7 @@ set number relativenumber
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
 " See man date or man strftime for details.
-set timefmt=%d/%m\ %H:%M
+set timefmt=%H:%M-%d/%m/%y
 
 " Show list of matches on tab completion in command-line mode
 set wildmenu
@@ -86,7 +66,7 @@ set nohlsearch
 set incsearch
 
 " Try to leave some space from cursor to upper/lower border in lists
-set scrolloff=4
+set scrolloff=0
 
 " Don't do too many requests to slow file systems
 if !has('win')
@@ -96,22 +76,10 @@ endif
 " Set custom status line look
 "%15s significa darle 15% del espacio en status bar al size, %10 es darle eso a date, u:g es ttdduu:ttdduu.
 "set statusline="  Hint: %z%= %A %1u:%-1g %8s %10d  "
-set statusline="   filesize %1s"
-set statusline="   filesize %1s   %{system('/home/ttdduu/code/misc/git_status.sh')}"
+"set statusline="   filesize %1s"
+"set statusline="   filesize %1s   %{system('/home/ttdduu/code/misc/git_status.sh')}    env %{system('echo ${CONDA_PREFIX##*/}')}"
+set statusline="   filesize %1s   %{system('/home/ttdduu/code/misc/git_status.sh')}    env %{system('/home/ttdduu/code/misc/env')}"
 
-"set statusline+=%"/home/ttdduu/code/misc/git_status.sh"
-
-" ------------------------------------------------------------------------------
-" ni idea que es esto
-
-" :mark mark /full/directory/path [filename]
-
-mark b ~/bin/
-mark h ~/
-
-" ------------------------------------------------------------------------------
-
-" de esto rescato diff, zip, run, mkcd {{{
 " :com[mand][!] command_name action
 " The following macros can be used in a command
 " %a is replaced with the user arguments.
@@ -134,11 +102,6 @@ command! vgrep nvim "+grep %a"
 command! reload :write | restart
 
 
-" }}}
-
-
-
-" ------------------------------------------------------------------------------
 " bla {{{
 " The file type is for the default programs to be used with
 " a file extension.
@@ -401,7 +364,7 @@ filextype */
 
 " Displaying pictures in terminal
 "
- fileviewer *.jpg,*.png shellpic %c
+ "fileviewer *.jpg,*.png feh %c
 
 " fileviewer *.jpg,*.png shotwell %c cuando pongo este me lo muestra pero se queda trabado ahi}}}
 
@@ -411,7 +374,7 @@ filextype */
 " uncommenting one of lines below will result in ignoring 'vi[x]cmd' option
 " for unknown file types.
 " For *nix:
-filetype * xdg-open
+filetype * nvim
 
 " ------------------------------------------------------------------------------
 
@@ -425,9 +388,8 @@ filetype * xdg-open
 
 " Customize view columns a bit (enable ellipsis for truncated file names)
 "
-" set viewcolumns=-{name}..,6{}.
-"set viewcolumns=*{name}..,16{mtime},7{}.
-set viewcolumns=-{name}..,2{}..,8{mtime},12{ctime}
+set viewcolumns=-{name},36{mtime},17{ctime}
+"set viewcolumns=-{name},8{mtime},12{ctime}
 
 " Filter-out build and temporary files
 "
@@ -437,7 +399,8 @@ set viewcolumns=-{name}..,2{}..,8{mtime},12{ctime}
 "{{{ Sample mappings
 
 " Start shell in current directory
-nnoremap sh :shell<cr>
+ nnoremap sh :shell<cr>
+"nnoremap sh :q<cr>
 
 " Display sorting dialog
 nnoremap S :sort<cr>
@@ -544,12 +507,6 @@ nnoremap F :windo filter /snap\/|Downloads\/|Templates\/|Music\/|Public\/|Deskto
 
 " }}}
 
-" {{{ mappings mios
-
-
-"seleccionar varios bloques en visual mode
-"nmap <space> tj
-
 nmap <space>td :!nvim todo.wiki<cr>
 nmap <space>ww :!nvim index.wiki<cr>
 nmap <space>a :sp <cr>
@@ -567,14 +524,11 @@ command ln ln %f:p %D
 nmap st :grep -l --exclude-dir=.git
 " }}}
 
-"nmap A :!nvim %c:r.wiki<cr>
-"nmap A :!nvim $wiki_/%c:r.wiki<c-a><right><right><right><right><right><right><right><right><right><right><right><right><tab>
-
 command bb :cd $biblio
 command pp :cd $papers
 command lsd :cd /home/ttdduu/lsd
 command fsn :cd /home/ttdduu/fsn
-command evo :cd /home/ttdduu/evo_again
+command evo :cd /home/ttdduu/evo
 command biome :cd /home/ttdduu/biome
 command D :cd /home/ttdduu/Dropbox
 
