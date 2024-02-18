@@ -165,7 +165,7 @@ command! Curr mks! $HOME/currently.session
 
 " }}}
 
-" {{{ buffers
+" {{{ buffers y tabs
 nmap ,j :bnext<cr>
 nmap ,k :bprevious<cr>
 nmap ,b :ls<CR>:b<Space>
@@ -174,6 +174,23 @@ nmap ,d <leader>bd
 " Map :wqa to :wa|qa
 command! -nargs=0 W wa|qa
 command! -nargs=0 T sp|terminal
+
+nmap tr :TabooRename<space>
+nmap tn :tabnew<cr>,dtr
+nmap \| :tabnext<cr>
+nmap tc :tabclose<cr>
+nmap 1\| :tabprevious<cr>
+nmap t<cr> <plug>(wiki-link-follow-tab)tr
+" Go to tab by number
+noremap t1 1gt
+noremap t2 2gt
+noremap t3 3gt
+noremap t4 4gt
+noremap t5 5gt
+noremap t6 6gt
+noremap t7 7gt
+noremap t8 8gt
+noremap t9 9gt
 " }}}
 
 " {{{ CtrlSF usado con wiki.vim xa buscar texto dentro de file
