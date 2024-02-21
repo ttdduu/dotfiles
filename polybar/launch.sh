@@ -15,7 +15,7 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 polybar eDP1 &
 
-if [[ $(xrandr -q | grep 'HDMI1 connected 1280') ]]; then
+if [[ $(xrandr -q | grep 'HDMI1 connected') ]]; then
 	xrandr --output eDP1 --primary --mode 1366x768 --rotate normal --output HDMI1 --noprimary --mode 1920x1080 --rotate normal --left-of eDP1
 
     polybar HDMI1 &

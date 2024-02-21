@@ -6,7 +6,9 @@ xmodmap ~/.Xmodmap;
 
 xsetroot -cursor_name left_ptr &
 
-$HOME/.config/polybar/launch.sh
+#$HOME/.config/polybar/launch.sh
+
+$HOME/.config/polybar/launch.sh # dos veces porque con una no le alcanza
 
 bspc config border_width       3
 bspc config window_gap         4
@@ -23,4 +25,5 @@ xrandr --output eDP1 --auto --output HDMI1 --auto --above eDP1
 
 feh --bg-fill ~/media/Pictures/bosque_sur.jpg ~/media/Pictures/bb_chasco.png
 
-startup_apps.sh
+
+#startup_apps.sh

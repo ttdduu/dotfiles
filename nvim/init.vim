@@ -131,12 +131,13 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " {{{ general mappings
 
 
+nmap ' /
+nmap ¿ '<cr>
 nmap <leader>v :so $MYVIMRC<CR>
 nmap <leader>a :above split<cr><c-j>
 nmap Y 0y$
 nmap <leader>fv :Vifm<cr>
 nmap yw yiw
-nmap ¿ /<cr>
 
 vmap <leader>s y<esc><esc><c-j><esc>pa<cr><cr>
 map $ g_
