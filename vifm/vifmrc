@@ -159,7 +159,7 @@ nnoremap s<CR> :!sudoedit %f<cr>
 nnoremap sl :!sudo %f<cr>
 
 " Audio
-filetype *.flac,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus,*.mp4
+filetype *.flac,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
 "      \ {Play using ffplay}
 "      \ ffplay -nodisp -autoexit %c,
        \ {Play using MPlayer}

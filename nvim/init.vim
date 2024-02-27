@@ -260,10 +260,15 @@ let g:python3_host_prog='/home/ttdduu/miniconda3/envs/pytom/bin/python'         
 "autocmd filetype python BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
 set completeopt=noinsert,menuone,noselect             " IMPORTANT: :help Ncm2PopupOpen for more information
 "" para no tener que escribir 3 caracteres antes de que aparezca el autocomplete. esto a su vez renders useless la utilizacion de wiki.vim del omnicomplete.
-let g:ncm2#complete_length=[[1,1],[7,2]]
+"let g:ncm2#complete_length=[[1,3],[7,2]]
+
 set shortmess+=c
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+let g:ncm2#auto_popup=0
+inoremap <C-space> <c-r>=ncm2#manual_trigger()<cr>
+let g:ncm2#manual_complete_length=2
 " }}}
 
 " {{{ navegación y resizing windows y terminal
