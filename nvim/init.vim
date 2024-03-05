@@ -131,8 +131,10 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " {{{ general mappings
 
 
-nmap ' /
-nmap ¿ '<cr>
+nmap . /
+" yankear link con corchetes para pdfs con anki_to_source, con n de no pierdas más tiempo forro
+nmap n f]F[hvt]lly<esc><esc>
+nmap ¿ .<cr>
 nmap <leader>v :so $MYVIMRC<CR>
 nmap <leader>a :above split<cr><c-j>
 nmap Y 0y$
@@ -178,6 +180,8 @@ command! -nargs=0 T sp|terminal
 
 nmap tr :TabooRename<space>
 nmap tn :tabnew<cr>,dtr
+"nmap gz f]F[lyt\|tn<esc>:e <C-R>"<CR>
+nnoremap gn f]F[lyt\|:tabnew <C-R>"<cr>
 nmap \| :tabnext<cr>
 nmap tc :tabclose<cr>
 nmap 1\| :tabprevious<cr>
@@ -192,6 +196,8 @@ noremap t6 6gt
 noremap t7 7gt
 noremap t8 8gt
 noremap t9 9gt
+
+nmap gv f]F[lyt\|:!vlc <C-R>"\|st sw & <CR><CR>
 " }}}
 
 " {{{ CtrlSF usado con wiki.vim xa buscar texto dentro de file
@@ -401,9 +407,6 @@ autocmd filetype wiki nmap yh $F#y$gg/<C-R>"<CR>
 " dentro de un [[teorica.wiki#seccion1#seccion1.1|teorica]], yank link al register l --> teorica.wiki#seccion1#seccion1.1
 autocmd filetype wiki nmap yl f]F[lvt\|"ly<esc><esc>f\|
 
-" yankear link con corchetes para pdfs con anki_to_source, con n de no pierdas más tiempo forro
-
-nmap n f]F[hvt]lly<esc><esc>
 
 autocmd filetype wiki nmap yH $F#y$
 
