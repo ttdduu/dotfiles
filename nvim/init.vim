@@ -557,6 +557,8 @@ autocmd FileType tex nmap <buffer> <Leader><Leader><CR> :update<bar>:VimtexCompi
 
 map s <Plug>(easymotion-s)
 autocmd FileType csv nmap <buffer> <Leader><Leader> :Tabularize /,<CR>
+let g:csv_autocmd_arrange = 1
+let g:csv_autocmd_arrange_size = 1024*1024
 
 
 " vim-markdown para latex

@@ -23,7 +23,7 @@ bspc wm -O HDMI1 eDP1
 
 xrandr --output eDP1 --auto --output HDMI1 --auto --above eDP1
 
-feh --bg-fill ~/media/Pictures/bosque_sur.jpg ~/media/Pictures/bb_chasco.png
+feh --bg-fill ~/media/pictures/bosque_sur.jpg ~/media/pictures/facultad.jpeg
 
 
 #startup_apps.sh

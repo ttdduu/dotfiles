@@ -500,7 +500,7 @@ set vifminfo=dhistory,savedirs,state,registers,bookmarks,bmarks,marks
 " carpetas a ignorar
 "windo filter /snap\/|Downloads\/|seaborn-data\/|media\/|wiki\/|wiki_test
 nnoremap f :filter !<cr>
-nnoremap F :windo filter /snap\/|Downloads\/|Templates\/|Music\/|Public\/|Desktop\/|Videos\/|/home/ttdduu/Pictures\/|Documents/<cr>
+nnoremap F :windo filter /snap\/|Downloads\/|Templates\/|Music\/|Public\/|Desktop\/|Videos\/|/home\/ttdduu\/Pictures\/|Documents/<cr>
 
 " para esconder el .synctex.gz generado al compilar un .tex
 "filter {*.synctex.gz}
@@ -537,6 +537,7 @@ autocmd DirEnter ~/Downloads,$wiki_lsd,$papers,$biblio setlocal sort=-mtime
 
 vmap _ :s/\ /_/g<cr>
 nmap _ v_
+nmap . /
 
 hi /^.*\.py$/ ctermfg=002
 hi /^.*\.praat$/ ctermfg=002
