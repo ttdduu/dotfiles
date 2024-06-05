@@ -5,9 +5,9 @@
 export H=$HOME
 #export D=$H/Dropbox
 export todo=$H/Dropbox/todo
-export PATH=$PATH:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/code:$HOME/code/misc:$HOME/code/tomates:$HOME/code/anki:$HOME/.config/vifm/scripts:/usr/bin/praat/:$HOME/code/lsd/praat:$HOME/.config/polybar:$HOME/code/misc/wrappers
+export PATH=$PATH:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/code:$HOME/code/misc:$HOME/code/tomates:$HOME/code/anki:$HOME/.config/vifm/scripts:/usr/bin/praat/:$HOME/code/lsd/praat:$HOME/.config/polybar:$HOME/code/misc/wrappers:$HOME/miniconda3/envs/pytom/lib
 #export PYTHONPATH=$HOME/Documents/scripts/pyfx/ml:$PYTHONPATH esto tenia en la compu vieja
-export PYTHONPATH=$PYTHONPATH:$HOME/code:$HOME/code/tomates:$HOME/code/misc:$HOME/code/anki:$HOME/code/lsd/:$HOME/lsd/tesis/
+export PYTHONPATH=$PYTHONPATH:$HOME/code:$HOME/code/tomates:$HOME/code/misc:$HOME/code/anki:$HOME/code/lsd/:$HOME/lsd/tesislab/
 #export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 #export WORKON_HOME=$HOME/.virtualenvs
 source $ZDOTDIR/.zalias
@@ -16,7 +16,7 @@ export ZSH="$HOME/.oh-my-zsh"
 #para vlc
 export MESA_LOADER_DRIVER_OVERRIDE="iris"
 # para apps de gnome:
-export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1003/bus
+#export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1003/bus
 export MPLCONFIGDIR=$HOME/.config/matplotlib/
 #export external_drive='/media/ttdduu/Elements/'
 export external_drive='/media/ttdduu/ad7f3b39-5104-43b4-8e02-dc88882b099a/'
@@ -24,14 +24,16 @@ export biblio=$HOME/pdfs/science/biblio
 export papers=$HOME/pdfs/science/papers
 export wiki_fsn=$HOME/Dropbox/wiki_fsn
 export wiki_evo=$HOME/Dropbox/wiki_evo
-export biome=$HOME/biometria/wiki_biome
+export biome=$HOME/finales/biometria/wiki_biome
 export evo=$HOME/evo/evo_again/wiki_evo_again
 export ef=$HOME/evo/final/wiki_final # evo final
 export lsd=$HOME/lsd
-export w=$HOME/lsd/tesis/extra_files/wavs
+export w=$HOME/lsd/tesislab/extra_files/wavs
 export wn=$HOME/lsd/tesis/extra_files/wavs/2023/nidos
 export figs=$lsd/tesis/extra_files/la_tesis/figs
 export sd='/home/ttdduu/external_drives/sd'
+export fur='/home/ttdduu/furnarius-drive-rclone'
+export sioyek=$HOME/sioyek/build/sioyek
 
 export xournal_autosave="$HOME/ttdduu/snap/xournalpp/69/.config/xournalpp/autosave/"
 
@@ -43,8 +45,8 @@ currdate() {
 	CURRDATE=$(date "+%d-%m-%Y")
 }
 add-zsh-hook preexec currdate
-#export EDITOR='nvim'
-#export VISUAL='nvim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -148,7 +150,7 @@ setopt auto_cd
 #source /home/ttdduu/.oh-my-zsh/plugins/zsh-syntax-highlighting.zsh
 source /home/ttdduu/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source /home/ttdduu/.local/bin/virtualenvwrapper.sh
-# >>> conda initialize >>>
+#>>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/ttdduu/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
@@ -161,5 +163,5 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
-conda activate pytom
+#<<< conda initialize <<<
+#conda activate pytom

@@ -8,13 +8,14 @@ super + Return
 	st
 # browser
 super + b
-	google-chrome
+	qutebrowser
+	#google-chrome
 super + shift + space
 	dmenu_run
 
 #anki
-super + a
-	anki
+#super + a
+	#pdf_to_wiki.py
 
 #abrir source en anki
 #super + space
@@ -219,13 +220,20 @@ super + shift + {z,x}
 super + {x,z}
 	bspc config window_gap $(($(bspc config window_gap) {+1,-1}))
 
-# si estoy en vim aprieto n en un link de lo que sea y me lo copia, luego super + n y se abre elsewhere. si estoy en anki, copio el link al portapapeles (el análogo de hacer n en vim) y super+n me lo abre.
-super + n
-
-	st -e sw link_to_elsewhere.py
 
 #super + shift + n --> al pedo, actualicé link_to_elsewhere
 	#link_to_vifm.py
 
 super + {t,w,g}
 	bsp-layout set {tall,wide,grid}
+
+# si estoy en vim aprieto n en un link de lo que sea y me lo copia, luego super + n y se abre elsewhere. si estoy en anki, copio el link al portapapeles (el análogo de hacer n en vim) y super+n me lo abre.
+super + @n
+
+	link_to_elsewhere.py
+super + N
+	link_to_elsewhere.py
+
+super + brace{left} # no funca
+	st -e sw link_to_elsewhere.py
+

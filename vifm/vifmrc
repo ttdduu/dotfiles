@@ -100,6 +100,7 @@ command! make !!make %a
 command! mkcd :mkdir %a | cd %a
 command! vgrep nvim "+grep %a"
 command! reload :write | restart
+command! sc :cd /home/ttdduu/media/screenshots
 
 
 " bla {{{
@@ -135,7 +136,7 @@ filextype *.xopp sw xournalpipi %c
 
 " Pdf
 
- filextype *.pdf sw okular %c
+ filextype *.pdf sw siok %c 1
 
  filextype *.djvu sw okular %c
 nnoremap e :!sw okular %c<cr>
@@ -157,6 +158,7 @@ filextype *.wiki nvim %c
 nnoremap <CR> :!nvim %f<cr>
 nnoremap s<CR> :!sudoedit %f<cr>
 nnoremap sl :!sudo %f<cr>
+nmap n yd
 
 " Audio
 filetype *.flac,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
@@ -228,9 +230,9 @@ filetype *.html,*.htm links, lynx
 " PostScript
 filextype *.ps,*.eps,*.ps.gz
         \ {View in zathura}
-        \ zathura %f,
-        \ {View in gv}
-        \ gv %c %i &,
+        \ okular %f,
+        "\ {View in gv}
+        "\ gv %c %i &,
 
 " jupyter notebook
 filextype *.ipynb
@@ -341,6 +343,7 @@ fileviewer *.7z 7z l %c}}}
 filetype *.torrent ktorrent %f &
 fileviewer *.torrent dumptorrent -v %c
 
+filetype *.mks nvim -S %c
 
 " Directories
 filextype */
@@ -560,7 +563,7 @@ nmap <space>gm :!git merge
 "nmap <space>gs :!nvim -c "G" -c "wincmd k" -c "q"
 "
 "nmap A :!
-nmap N Sn
+"nmap N Sn
 nmap M Sm
 nmap D {}k
 autocmd DirEnter $HOME setlocal sort=mtime
@@ -578,3 +581,6 @@ nmap | :tabnext<cr>
 nmap 1| :tabprev<cr>
 nmap tc :tabclose<cr>
 nmap yp yf
+nmap J jl
+nmap ñ .<cr>
+nmap Ñ N

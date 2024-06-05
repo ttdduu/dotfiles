@@ -10,6 +10,7 @@ endif
 " vim plug es un package manager esencialmente
 call plug#begin('~/.vim/plugged')
 Plug 'plasticboy/vim-markdown'
+Plug 'kshenoy/vim-signature'
 Plug 'lilydjwg/colorizer'
 Plug 'chrisbra/csv.vim'
 Plug 'rafi/awesome-vim-colorschemes'
@@ -64,6 +65,7 @@ endfunction
 " {{{ basic set
 
 	set foldtext=MyFoldText()
+	set autochdir
 	set foldmethod=marker
 	set shellcmdflag=-ic " shell interactiva xaq me lea los alias
 	colorscheme nord
@@ -81,7 +83,6 @@ endfunction
 	set mouse=a
 	set tabstop=4
 	set shiftwidth=4
-	"set textwidth=119
 	set gdefault
 	set inccommand=nosplit
 	let g:netrw_dirhistmax = 0
@@ -131,15 +132,19 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " {{{ general mappings
 
 
+" yankear un [[bla.pdf]] en algún texto tipo .wiki y abrir un bla.wiki
+nmap <c-a> f]?pdf<esc>hyT[ll:tabnew <C-R>".wiki<cr>
 nmap . /
+nmap ñ .<cr>
+nmap Ñ N
 " yankear link con corchetes para pdfs con anki_to_source, con n de no pierdas más tiempo forro
 nmap n f]F[hvt]lly<esc><esc>
-nmap ¿ .<cr>
+
 nmap <leader>v :so $MYVIMRC<CR>
 nmap <leader>a :above split<cr><c-j>
 nmap Y 0y$
 nmap <leader>fv :Vifm<cr>
-nmap yw yiw
+nmap yw F<space>yf<space>
 
 vmap <leader>s y<esc><esc><c-j><esc>pa<cr><cr>
 map $ g_
@@ -262,7 +267,8 @@ nmap <leader>gbd :!gbd<cr>
 
 " {{{ ncm2
 
-let g:python3_host_prog='/home/ttdduu/miniconda3/envs/pytom/bin/python'            " ncm2-jedi
+"let g:python3_host_prog='/home/ttdduu/miniconda3/envs/pytom/bin/python'            " ncm2-jedi
+let g:python3_host_prog='/home/ttdduu/miniconda3/envs/pytom-sioyek/bin/python'            " ncm2-jedi
 "autocmd filetype python BufEnter * call ncm2#enable_for_buffer()      " enable ncm2 for all buffers
 set completeopt=noinsert,menuone,noselect             " IMPORTANT: :help Ncm2PopupOpen for more information
 "" para no tener que escribir 3 caracteres antes de que aparezca el autocomplete. esto a su vez renders useless la utilizacion de wiki.vim del omnicomplete.
@@ -284,7 +290,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 inoremap <C-j> <esc><C-j>
-
 " resizing gradual
 noremap <silent> <leader>- :resize -3<CR>
 noremap <silent> <leader>+ :resize +3<CR>
@@ -306,6 +311,9 @@ autocmd FileType markdown,wiki nmap <buffer><silent> <Leader>p :call mdip#Markdo
 " {{{ python + terminal
 
 
+autocmd filetype python,R set colorcolumn=89
+autocmd filetype python,R set textwidth=88
+autocmd filetype python,R nmap # gqj
 " abrir nueva term split
 "autocmd filetype python map <Leader>P :new term://zsh<CR>iipython3 --matplotlib<CR><C-\><C-n><C-w>k"<CR>
 "autocmd filetype python map <Leader>P :new term://ipython3 --matplotlib<CR><C-\><C-n><C-w>k"<CR>
@@ -351,7 +359,7 @@ augroup ipython_cell_highlight
 	autocmd filetype python highlight IPythonCell cterm=bold guifg=Black guibg=white
 augroup END
 
-autocmd filetype python command! H normal! 0y$?{{{<cr>$a<space><esc>p
+autocmd filetype python,r command! H normal! 0y$?{{{<cr>$a<space><esc>p
 " }}}
 " }}}
 
@@ -420,11 +428,14 @@ nmap yk ylyp+k
 
 " para linkear a file dentro de una wiki (paths relativos, no absolutos como en anki)
 " en el TOC de teorica.wiki me paro en [[#seccion1#seccion1.1|blabla]] y hago yr --> tengo teorica.wiki en reg f y #seccion1#seccion1.1 en reg l.
-nmap yr yfyl
+nmap yn yfyl
+nmap yr f]F/lyt.
 " file section paste --> pego lo de un register y luego lo del otro: teorica.wiki#seccion1#seccion1.1
 " nmap fsp "fp"lp
 nmap fsp i[[<esc>"fp"lp]]<c-o>
 
+" desde un quote en la wiki de un pdf a ese mismo pdf en sioyek
+nnoremap N Y:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
 " i[[<Esc>"xp]]
 
 nmap <leader>wfp <plug>(wiki-fzf-pages)
@@ -536,7 +547,7 @@ let g:lists_maps_default_override = {'<plug>(lists-toggle)': '<leader>l'}
 " let g:vimtex_compiler_latexmk_engines = {'pdflatex': '-pdf'}
 let g:vimtex_compiler_latexmk_engines = {'latexmk': '-pdf'}
 let g:tex_flavor = "latex"
-let g:vimtex_view_method='okular'
+let g:vimtex_view_method='sioyek'
 let g:vimtex_quickfix_mode=1
 
 " Visible code only when hover
@@ -557,8 +568,8 @@ autocmd FileType tex nmap <buffer> <Leader><Leader><CR> :update<bar>:VimtexCompi
 
 map s <Plug>(easymotion-s)
 autocmd FileType csv nmap <buffer> <Leader><Leader> :Tabularize /,<CR>
-let g:csv_autocmd_arrange = 1
-let g:csv_autocmd_arrange_size = 1024*1024
+"let g:csv_autocmd_arrange = 1
+"let g:csv_autocmd_arrange_size = 1024*1024
 
 
 " vim-markdown para latex
@@ -584,8 +595,8 @@ autocmd VimEnter * autocmd WinEnter * let m3 = matchadd("MyGroupSBY", "STANDBY")
 let m3 = matchadd("MyGroupSBY", "STANDBY")
 
 highlight MyGroupIMP ctermbg=red guibg=red ctermfg=white guifg=white
-autocmd VimEnter * autocmd WinEnter * let m4 = matchadd("MyGroupIMP", "IMPORTANTE")
-let m4 = matchadd("MyGroupIMP", "IMPORTANTE")
+autocmd VimEnter * autocmd WinEnter * let m4 = matchadd("MyGroupIMP", "IMP")
+let m4 = matchadd("MyGroupIMP", "IMP")
 
 highlight MyGroupDONE ctermbg=LightGreen guibg=LightGreen ctermfg=black guifg=black
 autocmd VimEnter * autocmd WinEnter * let m5 = matchadd("MyGroupDONE", "DONE")
@@ -595,9 +606,13 @@ highlight MyGroupREVISAR ctermbg=Yellow guibg=Yellow ctermfg=black guifg=black
 autocmd VimEnter * autocmd WinEnter * let m7 = matchadd("MyGroupREVISAR", "REVISAR")
 let m7 = matchadd("MyGroupREVISAR", "REVISAR")
 
-highlight MyGroupNEXT ctermbg=lightblue guibg=lightblue ctermfg=black guifg=black
-autocmd VimEnter * autocmd WinEnter * let m9 = matchadd("MyGroupNEXT", "NEXT")
-let m9 = matchadd("MyGroupNEXT", "NEXT")
+highlight MyGroupVER ctermbg=Yellow guibg=Yellow ctermfg=black guifg=black
+autocmd VimEnter * autocmd WinEnter * let m6 = matchadd("MyGroupVER", "VER")
+let m6 = matchadd("MyGroupVER", "VER")
+
+highlight MyGroupRESULT ctermbg=LightGreen guibg=LightGreen ctermfg=black guifg=black
+autocmd VimEnter * autocmd WinEnter * let m9 = matchadd("MyGroupRESULT", "RESULT")
+let m9 = matchadd("MyGroupRESULT", "RESULT")
 
 highlight MyGroupflechita ctermfg=yellow guifg=yellow
 autocmd VimEnter * autocmd WinEnter * let m8 = matchadd("MyGroupflechita", "-->")
@@ -630,14 +645,43 @@ endfunction
 augroup black_on_save
   autocmd!
   autocmd BufWritePre *.py Black
+  "autocmd BufWritePre *.py execute ':!black --preview %'
 augroup end
+
+
+
 
 autocmd filetype r,python nmap <tab> /[[<cr>:noh<cr>
 
-
+autocmd filetype python set wrap!
 
 
 lua require('nvim-peekup.config').on_keystroke["paste_reg"] = '+'
 lua require('nvim-peekup.config').on_keystroke["delay"] = ''
 
+
+function! MySubstitution()
+    " Substitute [' with nothing
+    "%s/\[//
+
+    " Substitute ' with nothing
+    "%s/]//
+    "%s/'//
+
+	%s/   /,/
+    " Substitute three spaces with nothing
+    "%s/ //
+
+	%s/--undefined--/nan/
+endfunction
+
+nmap yp :let @+ = expand('%:p')<cr>
+nmap < V<
+nmap > V>
+"autocmd filetype python,r command! Ww execute 'w' | normal! gqj
+" Remap :w to our custom :W command
+"autocmd filetype python,r cnoreabbrev w Ww<esc>
+
+nnoremap -- :vertical resize -10<cr>
+nnoremap ++ :vertical resize +10<cr>
 
