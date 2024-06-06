@@ -164,4 +164,5 @@ else
 fi
 unset __conda_setup
 #<<< conda initialize <<<
-#conda activate pytom
+conda activate pytom
+#conda deactivate

@@ -142,7 +142,6 @@ nmap n f]F[hvt]lly<esc><esc>
 
 nmap <leader>v :so $MYVIMRC<CR>
 nmap <leader>a :above split<cr><c-j>
-nmap Y 0y$
 nmap <leader>fv :Vifm<cr>
 nmap yw F<space>yf<space>
 
@@ -186,7 +185,14 @@ command! -nargs=0 T sp|terminal
 nmap tr :TabooRename<space>
 nmap tn :tabnew<cr>,dtr
 "nmap gz f]F[lyt\|tn<esc>:e <C-R>"<CR>
-nnoremap gn f]F[lyt\|:tabnew <C-R>"<cr>
+" yank description al reg d
+nmap yd f]T~"dyt]
+" yank link al reg l y la descrption al d
+nnoremap ys ydyl
+nmap ys ydyl
+nnoremap gn ys:tabnew<cr>:e <C-R>"<cr>/<C-R>d<cr>:noh<cr>
+nmap gn ys:tabnew<cr>:e <C-R>"<cr>/<C-R>d<cr>:noh<cr>
+
 nmap \| :tabnext<cr>
 nmap tc :tabclose<cr>
 nmap 1\| :tabprevious<cr>
@@ -413,7 +419,7 @@ noremap <silent> yf :let @f=expand("%:t")<CR>
 " yank header (solo el header actual, no todo desde el 1er header, al register normal
 autocmd filetype wiki nmap yh $F#y$gg/<C-R>"<CR>
 " dentro de un [[teorica.wiki#seccion1#seccion1.1|teorica]], yank link al register l --> teorica.wiki#seccion1#seccion1.1
-autocmd filetype wiki nmap yl f]F[lvt\|"ly<esc><esc>f\|
+nmap yl f]F[lvt\|"ly<esc><esc>f\|
 
 
 autocmd filetype wiki nmap yH $F#y$
@@ -434,11 +440,11 @@ nmap yr f]F/lyt.
 " nmap fsp "fp"lp
 nmap fsp i[[<esc>"fp"lp]]<c-o>
 
-" desde un quote en la wiki de un pdf a ese mismo pdf en sioyek
+" desde un quote en la wiki de un pdf a ese mismo pdf en sioyek. VER no tengo idea de por qué funciona con Y si Y es y$. ni idea.
 nnoremap N Y:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
 " i[[<Esc>"xp]]
 
-nmap <leader>wfp <plug>(wiki-fzf-pages)
+autocmd filetype wiki nmap <leader>wfp <plug>(wiki-fzf-pages)
 let g:wiki_fzf_pages_opts = '--preview "cat {1}"'
 
 
