@@ -78,7 +78,7 @@ endif
 "set statusline="  Hint: %z%= %A %1u:%-1g %8s %10d  "
 "set statusline="   filesize %1s"
 "set statusline="   filesize %1s   %{system('/home/ttdduu/code/misc/git_status.sh')}    env %{system('echo ${CONDA_PREFIX##*/}')}"
-set statusline="   filesize %1s   %{system('/home/ttdduu/code/misc/git_status.sh')}    env %{system('/home/ttdduu/code/misc/env')}"
+set statusline="   filesize %1s   %{system('/home/ttdduu/code/miscellaneous_scripts/git_status.sh')}    env %{system('/home/ttdduu/code/miscellaneous_scripts/env')}"
 
 " :com[mand][!] command_name action
 " The following macros can be used in a command
@@ -136,7 +136,7 @@ filextype *.xopp sw xournalpipi %c
 
 " Pdf
 
- filextype *.pdf sw siok %c 1
+ filextype *.pdf sw sioy %c 1
 
  filextype *.djvu sw okular %c
 nnoremap e :!sw okular %c<cr>
@@ -574,7 +574,7 @@ nmap sr :!sudo rm -rf %f<cr>
 vmap sr :!sudo rm %f<cr>
 nmap T :!nvim -S %c<cr>
 
-nmap A :!nvim %c:r.wiki<cr>
+nmap A :!wiki_template.sh %c:r<cr>
 
 nmap tn :tabnew<cr>,dtr
 nmap | :tabnext<cr>
