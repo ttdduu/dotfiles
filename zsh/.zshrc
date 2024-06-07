@@ -5,9 +5,9 @@
 export H=$HOME
 #export D=$H/Dropbox
 export todo=$H/Dropbox/todo
-export PATH=$PATH:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/code:$HOME/code/misc:$HOME/code/tomates:$HOME/code/anki:$HOME/.config/vifm/scripts:/usr/bin/praat/:$HOME/code/lsd/praat:$HOME/.config/polybar:$HOME/code/misc/wrappers:$HOME/miniconda3/envs/pytom/lib
+export PATH=$PATH:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/code:$HOME/code/miscellaneous_scripts:$HOME/code/tomates:$HOME/code/anki:$HOME/.config/vifm/scripts:/usr/bin/praat/:$HOME/code/lsd/praat:$HOME/.config/polybar:$HOME/code/miscellaneous_scripts/wrappers:$HOME/miniconda3/envs/pytom/lib
 #export PYTHONPATH=$HOME/Documents/scripts/pyfx/ml:$PYTHONPATH esto tenia en la compu vieja
-export PYTHONPATH=$PYTHONPATH:$HOME/code:$HOME/code/tomates:$HOME/code/misc:$HOME/code/anki:$HOME/code/lsd/:$HOME/lsd/tesislab/
+export PYTHONPATH=$PYTHONPATH:$HOME/code:$HOME/code/tomates:$HOME/code/miscellaneous_scripts:$HOME/code/anki:$HOME/code/lsd/:$HOME/lsd/tesislab/
 #export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 #export WORKON_HOME=$HOME/.virtualenvs
 source $ZDOTDIR/.zalias
@@ -164,5 +164,5 @@ else
 fi
 unset __conda_setup
 #<<< conda initialize <<<
-conda activate pytom
+#conda activate pytom
 #conda deactivate
