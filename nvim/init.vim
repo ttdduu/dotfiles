@@ -441,7 +441,9 @@ nmap yr f]F/lyt.
 nmap fsp i[[<esc>"fp"lp]]<c-o>
 
 " desde un quote en la wiki de un pdf a ese mismo pdf en sioyek. VER no tengo idea de por qué funciona con Y si Y es y$. ni idea.
-nnoremap N Y:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
+nnoremap N F_y$:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
+"nnoremap N F_vf_2t<space>yy:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
+"nnoremap N F_y$:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
 " i[[<Esc>"xp]]
 
 autocmd filetype wiki nmap <leader>wfp <plug>(wiki-fzf-pages)
