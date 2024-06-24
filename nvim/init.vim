@@ -11,7 +11,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'plasticboy/vim-markdown'
 Plug 'kshenoy/vim-signature'
-Plug 'lilydjwg/colorizer'
+"Plug 'lilydjwg/colorizer'
 Plug 'chrisbra/csv.vim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'vim-airline/vim-airline'
@@ -38,16 +38,22 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'szw/vim-maximizer'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-"Plug 'lervag/wiki.vim', {'commit': '96bb3c921d369df3e089ff6af677b53fe8146166'}
-"Plug 'lervag/wiki-ft.vim', {'commit': '5d3624c1c88758a1db49b7b86ff930c54c6b2e42'}
+Plug 'lervag/wiki.vim'
+"Plug 'lervag/wiki-ft.vim'
+"Plug 'ttdduu/wiki-ft_first_fork.vim'
+
+" el fork del nuevo wiki-ft con colorcitos de italics
 Plug 'ttdduu/wiki-ft.vim'
-Plug 'ttdduu/wiki.vim'
+" el fork para el que hice PR en el wiki.vim oficial, todavía no aceptaron pero a mí me funca
+"Plug 'ttdduu/wiki.vim'
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'dyng/ctrlsf.vim' " para usar con ripgrep en wiki.vim
 Plug 'rbgrouleff/bclose.vim'
 Plug 'vifm/vifm.vim'
 Plug 'gcmt/taboo.vim'
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'gennaro-tedesco/nvim-peekup'
+
 call plug#end()
 
 " }}}
@@ -133,6 +139,9 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 
 " yankear un [[bla.pdf]] en algún texto tipo .wiki y abrir un bla.wiki
+
+nnoremap yw T<space>yt<space>
+nmap yw T<space>yt<space>
 nmap <c-a> f]?pdf<esc>hyT[ll:tabnew <C-R>".wiki<cr>
 nmap . /
 nmap ñ .<cr>
@@ -143,7 +152,7 @@ nmap n f]F[hvt]lly<esc><esc>
 nmap <leader>v :so $MYVIMRC<CR>
 nmap <leader>a :above split<cr><c-j>
 nmap <leader>fv :Vifm<cr>
-nmap yw F<space>yf<space>
+"nmap yw F<space>yf<space>
 
 vmap <leader>s y<esc><esc><c-j><esc>pa<cr><cr>
 map $ g_
@@ -406,7 +415,7 @@ autocmd filetype wiki let wiki_export['output'] = $PWD
 
 autocmd filetype wiki nmap <s-tab> <plug>(wiki-link-prev)
 autocmd FileType wiki imap <S-tab> <esc>Ea<space>
-nmap <leader>E :WikiExport<cr>\| sleep 120m \| u\| :!dropbox start<cr><cr>
+"nmap <leader>E :WikiExport<cr>\| sleep 120m \| u\| :!dropbox start<cr><cr>
 
 " go link: para cuando quiero ir a sección de misma page en wiki pero esa sección es > 6
 autocmd filetype wiki nmap gl f]F~lyt].#<C-R>"<esc>:noh<cr>
@@ -446,7 +455,8 @@ nnoremap N F_y$:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
 "nnoremap N F_y$:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
 " i[[<Esc>"xp]]
 
-autocmd filetype wiki nmap <leader>wfp <plug>(wiki-fzf-pages)
+"autocmd filetype wiki nmap <leader>wfp <plug>(wiki-fzf-pages)
+autocmd filetype wiki nmap <leader>wfp <plug>(wiki-pages)
 let g:wiki_fzf_pages_opts = '--preview "cat {1}"'
 
 
@@ -458,6 +468,20 @@ autocmd filetype wiki nnoremap L :call search('^#', 'W')<CR>
 
 " Mapping to jump to the previous header
 autocmd filetype wiki nnoremap K :call search('^#', 'bW')<CR>
+
+autocmd filetype wiki nmap <leader>wl yf:sp<cr>:WikiGraphRelated<cr>
+function! CloseNonModifiableWindows()
+    for i in range(winnr('$'), 1, -1)
+        exe i . 'wincmd w'
+        if !&modifiable
+            exe 'close'
+        endif
+    endfor
+endfunction
+
+nnoremap <leader>wL :call CloseNonModifiableWindows()<CR>
+
+
 
 " VBox {{{
 "autocmd FileType wiki vmap b :VBox<cr>
@@ -479,6 +503,15 @@ function MyFunction(name) abort
         "\ : a:name . '_' . strftime('%Y%m%d%H%M%S')
 		"return [strftime('%A-%d-%m-%Y-%H%M%S') . '_' . a:name, a:name]
 endfunction
+
+let g:wiki_root = '~/wiki'
+
+augroup MyWikiAutocmds
+  autocmd!
+  autocmd User WikiBufferInitialized call wiki#cache#clear('links-in')
+  autocmd User WikiBufferInitialized call wiki#link#incoming_display()
+augroup END
+
 " }}}
 
 " {{{ text to link

@@ -21,8 +21,7 @@ xset r rate 175 50 # reducir delay de teclas
 setxkbmap -option caps:swapescape
 bspc wm -O HDMI1 eDP1
 
-xrandr --output eDP1 --auto --output HDMI1 --auto --left-of eDP1
-
+xrandr --output eDP1 --auto --output HDMI1 --auto --right-of eDP1
 feh --bg-fill ~/media/pictures/bosque_sur.jpg ~/media/pictures/20240316_151948.jpg
 
 

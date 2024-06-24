@@ -8,8 +8,7 @@ super + Return
 	st
 # browser
 super + b
-	qutebrowser
-	#google-chrome
+	google-chrome
 super + shift + space
 	dmenu_run
 
