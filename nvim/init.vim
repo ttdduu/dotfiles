@@ -145,7 +145,6 @@ nmap yw T<space>yt<space>
 nmap <c-a> f]?pdf<esc>hyT[ll:tabnew <C-R>".wiki<cr>
 nmap . /
 nmap ñ .<cr>
-nmap Ñ N
 " yankear link con corchetes para pdfs con anki_to_source, con n de no pierdas más tiempo forro
 nmap n f]F[hvt]lly<esc><esc>
 
@@ -451,6 +450,8 @@ nmap fsp i[[<esc>"fp"lp]]<c-o>
 
 " desde un quote en la wiki de un pdf a ese mismo pdf en sioyek. VER no tengo idea de por qué funciona con Y si Y es y$. ni idea.
 nnoremap N F_y$:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
+
+nmap Ñ N
 "nnoremap N F_vf_2t<space>yy:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
 "nnoremap N F_y$:let @+ = @+.expand('\ ').expand('%:p')<CR>:<esc>
 " i[[<Esc>"xp]]

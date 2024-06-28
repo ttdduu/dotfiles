@@ -25,4 +25,4 @@ xrandr --output eDP1 --auto --output HDMI1 --auto --right-of eDP1
 feh --bg-fill ~/media/pictures/bosque_sur.jpg ~/media/pictures/20240316_151948.jpg
 
 
-#startup_apps.sh
+startup_apps.sh
