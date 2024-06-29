@@ -561,7 +561,7 @@ autocmd FileType wiki,python ListsEnable
 
 "let g:lists_todos = [strftime('(%d-%m-%y) ') . 'TODO', strftime('(%d-%m-%y) ') . 'CURRENTLY', strftime('(%d-%m-%y) ') . 'NEXT',strftime('(%d-%m-%y) ') . 'STANDBY', strftime('(%d-%m-%y) ') . 'RETOMAR EN', strftime('(%d-%m-%y) ') . 'DONE']
 
-let g:lists_todos = ['TODO', 'CURRENTLY', 'DONE','NEXT','STANDBY']
+let g:lists_todos = ['TODO', 'CURRENTLY', 'DONE','STANDBY']
 
 let g:lists_maps_default_override = {'<plug>(lists-toggle)': '<leader>l'}
 
@@ -652,10 +652,6 @@ highlight MyGroupVER ctermbg=Yellow guibg=Yellow ctermfg=black guifg=black
 autocmd VimEnter * autocmd WinEnter * let m6 = matchadd("MyGroupVER", "VER")
 let m6 = matchadd("MyGroupVER", "VER")
 
-highlight MyGroupRESULT ctermbg=LightGreen guibg=LightGreen ctermfg=black guifg=black
-autocmd VimEnter * autocmd WinEnter * let m9 = matchadd("MyGroupRESULT", "RESULT")
-let m9 = matchadd("MyGroupRESULT", "RESULT")
-
 highlight MyGroupflechita ctermfg=yellow guifg=yellow
 autocmd VimEnter * autocmd WinEnter * let m8 = matchadd("MyGroupflechita", "-->")
 let m8 = matchadd("MyGroupflechita", "-->")
@@ -727,3 +723,24 @@ nmap > V>
 nnoremap -- :vertical resize -10<cr>
 nnoremap ++ :vertical resize +10<cr>
 
+
+function! ConfirmSaveSession()
+  if tabpagenr('$') > 1
+    let choice = confirm("Save session?", "&Yes\n&No\n&Cancel")
+    if choice == 1
+      let session_name = input("Enter session name: ")
+      if session_name != ""
+        execute 'mksession! ' . session_name . '.mks'
+      endif
+      W
+    elseif choice == 2
+      W
+    endif
+  else
+    W
+  endif
+endfunction
+
+command! QuitWithWarning call ConfirmSaveSession()
+nnoremap <silent> :q :QuitWithWarning<CR>
+nnoremap <silent> :W :QuitWithWarning<CR>
