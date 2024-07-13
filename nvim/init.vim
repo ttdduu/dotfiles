@@ -104,6 +104,7 @@ endfunction
 	se go=a
 	set wrap
 	set shell=/usr/bin/zsh
+	set sessionoptions+=tabpages,globals
 	"set shell=/usr/bin/bash
 
 " }}}
@@ -187,7 +188,6 @@ nmap ,b :ls<CR>:b<Space>
 " del plugin bclose.vim
 nmap ,d <leader>bd
 " Map :wqa to :wa|qa
-command! -nargs=0 W wa|qa
 command! -nargs=0 T sp|terminal
 
 nmap tr :TabooRename<space>
@@ -511,6 +511,8 @@ augroup MyWikiAutocmds
   autocmd!
   autocmd User WikiBufferInitialized call wiki#cache#clear('links-in')
   autocmd User WikiBufferInitialized call wiki#link#incoming_display()
+  autocmd User WikiWinEnter call wiki#cache#clear('links-in')
+  autocmd User WikiWinEnter call wiki#link#incoming_display()
 augroup END
 
 " }}}
@@ -561,7 +563,7 @@ autocmd FileType wiki,python ListsEnable
 
 "let g:lists_todos = [strftime('(%d-%m-%y) ') . 'TODO', strftime('(%d-%m-%y) ') . 'CURRENTLY', strftime('(%d-%m-%y) ') . 'NEXT',strftime('(%d-%m-%y) ') . 'STANDBY', strftime('(%d-%m-%y) ') . 'RETOMAR EN', strftime('(%d-%m-%y) ') . 'DONE']
 
-let g:lists_todos = ['TODO', 'CURRENTLY', 'DONE','STANDBY']
+let g:lists_todos = ['TODO', 'CURRENTLY', 'DONE','STANDBY','NEXT']
 
 let g:lists_maps_default_override = {'<plug>(lists-toggle)': '<leader>l'}
 
@@ -656,6 +658,9 @@ highlight MyGroupflechita ctermfg=yellow guifg=yellow
 autocmd VimEnter * autocmd WinEnter * let m8 = matchadd("MyGroupflechita", "-->")
 let m8 = matchadd("MyGroupflechita", "-->")
 
+highlight MyGroupNEXT ctermbg=lightblue guibg=lightblue ctermfg=black guifg=black
+autocmd VimEnter * autocmd WinEnter * let m6 = matchadd("MyGroupNEXT", "NEXT")
+let m6 = matchadd("MyGroupNEXT", "NEXT")
 " }}}
 
 
@@ -724,6 +729,7 @@ nnoremap -- :vertical resize -10<cr>
 nnoremap ++ :vertical resize +10<cr>
 
 
+command! -nargs=0 Savequit wa|qa
 function! ConfirmSaveSession()
   if tabpagenr('$') > 1
     let choice = confirm("Save session?", "&Yes\n&No\n&Cancel")
@@ -732,15 +738,14 @@ function! ConfirmSaveSession()
       if session_name != ""
         execute 'mksession! ' . session_name . '.mks'
       endif
-      W
+      Savequit
     elseif choice == 2
-      W
+      Savequit
     endif
   else
-    W
+    Savequit
   endif
 endfunction
 
 command! QuitWithWarning call ConfirmSaveSession()
-nnoremap <silent> :q :QuitWithWarning<CR>
-nnoremap <silent> :W :QuitWithWarning<CR>
+command! W QuitWithWarning
