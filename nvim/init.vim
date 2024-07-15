@@ -470,7 +470,8 @@ autocmd filetype wiki nnoremap L :call search('^#', 'W')<CR>
 " Mapping to jump to the previous header
 autocmd filetype wiki nnoremap K :call search('^#', 'bW')<CR>
 
-autocmd filetype wiki nmap <leader>wl yf:sp<cr>:WikiGraphRelated<cr>
+" esto es al pedo; el graph (al cual accedo con <leader>wgr) se cierra con q
+autocmd filetype wiki nmap <leader>wll yf:sp<cr>:WikiGraphRelated<cr>
 function! CloseNonModifiableWindows()
     for i in range(winnr('$'), 1, -1)
         exe i . 'wincmd w'
