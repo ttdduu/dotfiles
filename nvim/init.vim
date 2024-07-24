@@ -39,6 +39,8 @@ Plug 'szw/vim-maximizer'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'lervag/wiki.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 "Plug 'lervag/wiki-ft.vim'
 "Plug 'ttdduu/wiki-ft_first_fork.vim'
 
@@ -53,6 +55,7 @@ Plug 'vifm/vifm.vim'
 Plug 'gcmt/taboo.vim'
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'gennaro-tedesco/nvim-peekup'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -457,9 +460,12 @@ nmap Ñ N
 " i[[<Esc>"xp]]
 
 "autocmd filetype wiki nmap <leader>wfp <plug>(wiki-fzf-pages)
-autocmd filetype wiki nmap <leader>wfp <plug>(wiki-pages)
-let g:wiki_fzf_pages_opts = '--preview "cat {1}"'
+"autocmd filetype wiki nmap <leader>wfp <plug>(wiki-pages)
+"let g:wiki_fzf_pages_opts = '--preview "cat {1}"'
 
+"nnoremap <leader>wfp <cmd>Telescope find_files<cr>
+nnoremap <leader>wfp :FZF -e --preview cat\ {}<cr>
+"nnoremap <Leader>pa :lua require'telescope.builtin'.grep_string{}
 
 nnoremap gs :let w1_bufnr = bufnr('%')<bar>let w1_pos = getpos('.')<bar>wincmd w<bar>execute 'buffer '.w1_bufnr<bar>call setpos('.', w1_pos)<bar>wincmd p<bar>execute 'normal! zz'<CR>:wincmd w<CR><CR>zR
 

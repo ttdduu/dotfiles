@@ -528,7 +528,8 @@ nmap st :grep -l --exclude-dir=.git
 " }}}
 
 command bb :cd $biblio
-command pp :cd $papers
+command pp :cd $biblio
+command ww :cd $biblio
 command lsd :cd /home/ttdduu/lsd
 command fsn :cd /home/ttdduu/fsn
 command evo :cd /home/ttdduu/evo
