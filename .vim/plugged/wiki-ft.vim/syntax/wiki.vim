@@ -45,7 +45,6 @@ unlet s:i s:gcolors s:ccolors
 " Add syntax groups and clusters for links
 for [s:group, s:type; s:contained] in [
       \ ['wikiLinkUrl',       'url',        'wikiConcealLink'],
-      \ ['wikiLinkUrl',       'cite'],
       \ ['wikiLinkWiki',      'wiki',       'wikiConcealLinkWiki'],
       \ ['wikiLinkRef',       'reference'],
       \ ['wikiLinkRef',       'ref_full',   'wikiConcealLinkRef'],
@@ -102,6 +101,7 @@ highlight default link wikiLinkRefTarget Underlined
 highlight default link wikiLinkDate MoreMsg
 highlight default wikiBold cterm=bold gui=bold ctermfg=lightyellow guifg=lightyellow
 highlight default wikiItalic cterm=italic gui=italic ctermfg=lightred guifg=lightred
+highlight default wikiCite cterm=italic gui=italic ctermfg=lightyellow guifg=lightyellow
 highlight default wikiBoldItalic cterm=italic,bold gui=italic,bold ctermfg=lightyellow guifg=lightyellow
 highlight default link wikiItalicBold wikiBoldItalic
 highlight default wikiLinkWiki ctermfg=yellow guifg=yellow
@@ -130,6 +130,7 @@ for [s:group, s:target] in [
       \ ['wikiNumber', ''],
       \ ['wikiBoldT', 'wikiBold'],
       \ ['wikiItalicT', 'wikiItalic'],
+      \ ['wikiCiteT', 'wikiCite'],
       \ ['wikiCodeT', 'wikiCode'],
       \ ['wikiLinkUrlT', 'wikiLinkUrl'],
       \ ['wikiLinkWikiT', 'wikiLinkWiki'],
@@ -265,8 +266,18 @@ execute 'syntax match wikiItalicBold'
       \ '/' . wiki#rx#bold . '/'
       \ 'contains=wikiConcealBold,wikiConcealItalic,@Spell contained'
 
+execute 'syntax match wikiCite'
+	  \ '/' . wiki#rx#cite . '/'
+	  \ 'contains=wikiItalicBold,wikiConcealItalic,@Spell'
+execute 'syntax match wikiCiteT'
+	  \ '/' . wiki#rx#cite . '/'
+	  \ 'contained contains=@Spell'
+syntax match wikiCite /"/ contained conceal
+
+
 highlight default wikiBold cterm=bold gui=bold
 highlight default wikiItalic cterm=italic gui=italic
+highlight default wikiCite cterm=italic gui=italic
 highlight default wikiBoldItalic cterm=italic,bold gui=italic,bold
 highlight default link wikiItalicBold wikiBoldItalic
 
