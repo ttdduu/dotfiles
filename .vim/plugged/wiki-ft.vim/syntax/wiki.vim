@@ -268,11 +268,11 @@ execute 'syntax match wikiItalicBold'
 
 execute 'syntax match wikiCite'
 	  \ '/' . wiki#rx#cite . '/'
-	  \ 'contains=wikiItalicBold,wikiConcealItalic,@Spell'
+	  \ 'contains=wikiConcealCite,@Spell'
 execute 'syntax match wikiCiteT'
 	  \ '/' . wiki#rx#cite . '/'
 	  \ 'contained contains=@Spell'
-syntax match wikiCite /"/ contained conceal
+syntax match wikiConcealCite /@/ contained conceal
 
 
 highlight default wikiBold cterm=bold gui=bold

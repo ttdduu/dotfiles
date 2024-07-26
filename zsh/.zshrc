@@ -148,6 +148,15 @@ setopt auto_cd
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+pale() {
+  if [[ $(file --mime "$1") =~ text ]]; then
+	  nvim "$1"
+  else
+    if [[ -d "$1" ]]; then
+      vifm "$1"
+    fi
+  fi
+}
 
 #source /home/ttdduu/.oh-my-zsh/plugins/zsh-syntax-highlighting.zsh
 source /home/ttdduu/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
